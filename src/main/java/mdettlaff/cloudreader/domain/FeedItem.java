@@ -2,15 +2,17 @@ package mdettlaff.cloudreader.domain;
 
 import java.util.Date;
 
-public class FeedItem {
+public class FeedItem implements Comparable<FeedItem> {
 
 	private String id;
+	private String feedTitle;
 	private String title;
 	private String link;
 	private String description;
 	private Date publicationDate;
 	private Date creationDate;
 	private String author;
+	private boolean read;
 
 	public FeedItem() {
 		creationDate = new Date();
@@ -22,6 +24,14 @@ public class FeedItem {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getFeedTitle() {
+		return feedTitle;
+	}
+
+	public void setFeedTitle(String feedTitle) {
+		this.feedTitle = feedTitle;
 	}
 
 	public String getTitle() {
@@ -70,5 +80,18 @@ public class FeedItem {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public boolean isRead() {
+		return read;
+	}
+
+	public void setRead(boolean read) {
+		this.read = read;
+	}
+
+	@Override
+	public int compareTo(FeedItem other) {
+		return publicationDate.compareTo(other.publicationDate);
 	}
 }

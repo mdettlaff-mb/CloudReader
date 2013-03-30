@@ -12,10 +12,12 @@
 
 Hello!
 
-<hr>
-<c:forEach items="${feeds}" var="feed">
-	${feed.title}<br>
-	${feed.link}
+<c:forEach items="${feedItems}" var="item">
+	${item.feedTitle}<br>
+	${item.title}<br>
+	${item.link}<br>
+	${item.description}
+	<hr>
 </c:forEach>
 
 	</body>

@@ -1,12 +1,15 @@
 package mdettlaff.cloudreader.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import mdettlaff.cloudreader.domain.FeedItem;
 import mdettlaff.cloudreader.service.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,9 +24,20 @@ public class HomeController {
 	}
 
 	@RequestMapping("")
-	public ModelAndView home() {
+	public ModelAndView home() throws Exception {
 		Map<String, Object> model = new HashMap<>();
-		model.put("feeds", service.getFeeds());
+		model.put("feedItems", service.getFeedItems());
 		return new ModelAndView("index", model);
+	}
+
+	@RequestMapping("/items/{id}/read")
+	public void markAsRead(@PathVariable("id") String id) {
+		System.out.println("mark as read: " + id);
+		service.markAsRead(id);
+	}
+
+	@RequestMapping("/items")
+	public List<FeedItem> items(List<String> unreadFeedItemsIds) {
+		return service.getFeedItems(unreadFeedItemsIds);
 	}
 }
