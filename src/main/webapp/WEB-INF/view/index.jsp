@@ -14,8 +14,8 @@ Hello!
 
 <hr>
 <c:forEach items="${feeds}" var="feed">
-	${feed.name}<br>
-	${feed.url}
+	${feed.title}<br>
+	${feed.link}
 </c:forEach>
 
 	</body>
