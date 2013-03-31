@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import mdettlaff.cloudreader.dao.FeedItemDao;
 import mdettlaff.cloudreader.domain.FeedItem;
-import mdettlaff.cloudreader.domain.Subscription;
+import mdettlaff.cloudreader.domain.Feed;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,30 +33,29 @@ public class FeedDownloadService implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() {
-		refreshSubscriptions();
+		refreshFeeds();
 	}
 
-	private void refreshSubscriptions() {
-		List<Subscription> subscriptions = dao.getSubscriptions();
-		for (Subscription subscription : subscriptions) {
+	private void refreshFeeds() {
+		List<Feed> feeds = dao.getFeeds();
+		for (Feed feed : feeds) {
 			try {
-				downloadFeedItems(subscription);
+				downloadFeedItems(new URL(feed.getUrl()));
 			} catch (FeedException | IOException e) {
-				log.warning("cannot download feed " + subscription.getUrl() + ", cause: " + e);
+				log.warning("cannot download feed " + feed.getUrl() + ", cause: " + e);
 			}
 		}
 	}
 
-	private void downloadFeedItems(Subscription subscription) throws FeedException, IOException {
-		log.info("downloading " + subscription.getUrl());
-		List<FeedItem> feedItems = feedParserService.parseFeed(new URL(subscription.getUrl()));
+	private void downloadFeedItems(URL feedUrl) throws FeedException, IOException {
+		log.info("downloading " + feedUrl);
+		List<FeedItem> feedItems = feedParserService.parseFeed(feedUrl);
 		for (FeedItem item : feedItems) {
 			item.setDownloadDate(new Date());
-			item.getFeed().setSubscription(subscription);
 			item.setGuid(createGuid(item));
 		}
 		dao.save(feedItems);
-		log.info("subscription " + subscription.getUrl() + " saved");
+		log.info("feed " + feedUrl + " saved");
 	}
 
 	private String createGuid(FeedItem item) {

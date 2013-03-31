@@ -25,7 +25,7 @@ public class FeedParserService {
 	public List<FeedItem> parseFeed(URL feedSource) throws FeedException, IOException {
 		SyndFeedInput input = new SyndFeedInput();
 		SyndFeed syndFeed = input.build(new XmlReader(feedSource));
-		Feed feed = new Feed();
+		Feed feed = new Feed(feedSource.toString());
 		feed.setTitle(syndFeed.getTitle());
 		feed.setLink(syndFeed.getLink());
 		List<FeedItem> items = new ArrayList<>();

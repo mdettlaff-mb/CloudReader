@@ -1,6 +1,7 @@
 package mdettlaff.cloudreader.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -26,11 +27,12 @@ public class FeedParserServiceTest {
 		List<FeedItem> items = service.parseFeed(feedSource);
 		assertEquals(25, items.size());
 		FeedItem item = items.get(4);
+		assertTrue(item.getFeed().getUrl().matches("file:.*qc_rss.xml"));
 		assertEquals("Queen Corner online", item.getFeed().getTitle());
 		assertEquals("http://queencorner.ovh.org", item.getFeed().getLink());
 		assertEquals("Queen w filmie Sucker Punch", item.getTitle());
 		assertEquals("http://queencorner.ovh.org/index.php?go=news#25-03-2011", item.getLink());
-		assertEquals("W filmie Sucker Punch zosta≥ uøyty mashup dwÛch piosenek Queen WWRY i I want it all autorstwa rapera <b>Terror Squad i Armageddon.</b>", item.getDescription());
+		assertEquals("W filmie Sucker Punch zosta≈Ç u≈ºyty mashup dw√≥ch piosenek Queen WWRY i I want it all autorstwa rapera <b>Terror Squad i Armageddon.</b>", item.getDescription());
 		assertEquals(new SimpleDateFormat("yyyyMMdd hhmmss").parse("20110325 190434"), item.getDate());
 		assertEquals("fredmiot@poczta.onet.pl (Daga)", item.getAuthor());
 		assertEquals("http://queencorner.ovh.org/index.php?go=news#25-03-2011", item.getUri());
@@ -43,6 +45,7 @@ public class FeedParserServiceTest {
 		List<FeedItem> items = service.parseFeed(feedSource);
 		assertEquals(7, items.size());
 		FeedItem item = items.get(1);
+		assertTrue(item.getFeed().getUrl().matches("file:.*github_atom.xml"));
 		assertEquals("Recent Commits to CloudReader:master", item.getFeed().getTitle());
 		assertEquals("https://github.com/mdettlaff-mb/CloudReader/commits/master", item.getFeed().getLink());
 		assertEquals("return JSON objects", item.getTitle());

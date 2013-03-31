@@ -110,7 +110,7 @@ public class FeedItem implements Comparable<FeedItem> {
 	@JsonIgnore
 	public String getHashBase() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(feed.getSubscription().getUrl());
+		builder.append(feed.getUrl());
 		builder.append(uri);
 		builder.append(link);
 		builder.append(title);

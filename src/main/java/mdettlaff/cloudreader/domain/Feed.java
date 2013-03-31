@@ -2,9 +2,21 @@ package mdettlaff.cloudreader.domain;
 
 public class Feed {
 
+	private String url;
 	private String title;
 	private String link;
-	private Subscription subscription;
+
+	public Feed(String url) {
+		this.url = url;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public String getTitle() {
 		return title;
@@ -20,13 +32,5 @@ public class Feed {
 
 	public void setLink(String link) {
 		this.link = link;
-	}
-
-	public Subscription getSubscription() {
-		return subscription;
-	}
-
-	public void setSubscription(Subscription subscription) {
-		this.subscription = subscription;
 	}
 }
