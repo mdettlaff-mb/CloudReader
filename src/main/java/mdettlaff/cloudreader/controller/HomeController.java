@@ -33,7 +33,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/items/{id}/read")
-	public void markAsRead(@PathVariable("id") String id) {
+	public @ResponseBody void markAsRead(@PathVariable("id") String id) {
 		service.markAsRead(id);
 	}
 
