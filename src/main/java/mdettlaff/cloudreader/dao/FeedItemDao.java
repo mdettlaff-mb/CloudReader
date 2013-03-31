@@ -24,7 +24,7 @@ public class FeedItemDao {
 		}
 	}
 	
-	public void markAsRead(String feedItemGuid) {
+	public void markItemAsRead(String feedItemGuid) {
 		FeedItem item = database.get(feedItemGuid);
 		item.setRead(true);
 	}

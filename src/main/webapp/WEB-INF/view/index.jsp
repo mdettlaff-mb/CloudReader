@@ -12,7 +12,7 @@
 		<script src="/resources/cloudreader.js"></script>
 		<script>
 			$(document).ready(function () {
-				initCloudReaderHotkeys();
+				cloudReader.initHotkeys();
 			});
 		</script>
 	</head>
@@ -24,10 +24,16 @@ No items to display.
 </c:if>
 <c:forEach items="${feedItems}" var="item">
 <div id="${item.guid}" class="item">
-	<div class="feedTitle">${item.feed.title}</div>
-	${item.feed.link}<br>
-	<div class="title">${item.title}</div>
-	${item.link}<br>
+	<div class="title">
+		<a href="${item.link}">
+			${item.title}
+		</a>
+	</div>
+	<div class="feedTitle">
+		<a href="${item.feed.link}">
+			${item.feed.title}
+		</a>
+	</div>
 	<div class="description">${item.description}</div>
 </div>
 </c:forEach>

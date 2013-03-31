@@ -34,15 +34,13 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/items/{id}/read", method = RequestMethod.POST)
-	public @ResponseBody void markAsRead(@PathVariable("id") String id) {
-		System.out.println("markAsRead: " + id);
-		service.markAsRead(id);
-		System.out.println("markAsRead: SUCCESS");
+	public @ResponseBody String markItemAsRead(@PathVariable("id") String id) {
+		service.markItemAsRead(id);
+		return "";
 	}
 
 	@RequestMapping(value = "/items", method = RequestMethod.POST)
-	public @ResponseBody List<FeedItem> items(@RequestBody List<String> unreadFeedItemsGuids) throws Exception {
-		System.out.println("items: " + unreadFeedItemsGuids);
+	public @ResponseBody List<FeedItem> fetchMoreItems(@RequestBody List<String> unreadFeedItemsGuids) throws Exception {
 		return service.getFeedItems(unreadFeedItemsGuids);
 	}
 }

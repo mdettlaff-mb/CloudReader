@@ -34,7 +34,7 @@ public class FeedService {
 		return dao.findUnread(BUFFER_SIZE, unreadFeedItemsGuids);
 	}
 
-	public void markAsRead(String feedItemGuid) {
-		dao.markAsRead(feedItemGuid);
+	public void markItemAsRead(String feedItemGuid) {
+		dao.markItemAsRead(feedItemGuid);
 	}
 }
