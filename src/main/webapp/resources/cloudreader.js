@@ -1,8 +1,21 @@
 (function (cloudReader, $, undefined) {
 	
+	// public
+	
 	cloudReader.initHotkeys = function () {
 		$(document).bind('keydown', 'n j', goToNextItem);
 		$(document).bind('keydown', 'k', goToPreviousItem);
+		$(document).bind('keydown', 'v', openItemLink);
+	}
+
+
+	// private
+
+	function openItemLink() {
+		var currentItemLink = $('.itemCurrent .title a').attr('href');
+		if (currentItemLink) {
+			window.open(currentItemLink);
+		}
 	}
 
 	function createNewItem(downloadedItem) {
@@ -11,9 +24,9 @@
 		var clonedItem = lastItem.clone();
 		clonedItem[0].id = downloadedItem.guid;
 		$('.feedTitle a', clonedItem).html(downloadedItem.feed.title);
-		$('.feedTitle a', clonedItem).attr("href", downloadedItem.feed.link);
+		$('.feedTitle a', clonedItem).attr('href', downloadedItem.feed.link);
 		$('.title a', clonedItem).html(downloadedItem.title);
-		$('.title a', clonedItem).attr("href", downloadedItem.link);
+		$('.title a', clonedItem).attr('href', downloadedItem.link);
 		$('.description', clonedItem).html(downloadedItem.description);
 		$('.date', clonedItem).html(formatDate(new Date(parseInt(downloadedItem.date))));
 		clonedItem.insertAfter(lastItem);
@@ -30,8 +43,8 @@
 			return this.id;
 		}).get();
 		$.ajax({
-			url: "/items",
-			type: "post",
+			url: '/items',
+			type: 'post',
 			contentType: 'application/json',
 			data: JSON.stringify(unreadItemsIds)
 		}).done(function (downloadedItems) {
@@ -53,7 +66,7 @@
 		if (newItem.length == 1) {
 			if (!newItem.hasClass('itemRead')) {
 				var readItemId = newItem[0].id;
-				$.post("/items/" + readItemId + "/read");
+				$.post('/items/' + readItemId + '/read');
 			}
 			currentItem.removeClass('itemCurrent');
 			newItem.addClass('itemRead');
