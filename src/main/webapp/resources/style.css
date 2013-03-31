@@ -1,3 +1,12 @@
+body {
+	font-family: Arial;
+	font-size: 90%;
+}
+
+a {
+	text-decoration: none;
+}
+
 .item {
 	border: 1px gray solid;
 	padding: 7px;
@@ -14,6 +23,7 @@
 
 .title {
 	font-size: 125%;
+	font-weight: bold;
 }
 
 .date {
