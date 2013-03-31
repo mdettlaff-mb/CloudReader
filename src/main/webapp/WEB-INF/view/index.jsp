@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="/resources/style.css" type="text/css">
 		<script src="/resources/jquery-1.9.1.js"></script>
 		<script src="/resources/jquery.hotkeys.js"></script>
+		<script src="/resources/date.format.js"></script>
 		<script src="/resources/cloudreader.js"></script>
 		<script>
 			$(document).ready(function () {
@@ -25,7 +26,7 @@ No items to display.
 <c:forEach items="${feedItems}" var="item">
 <div id="${item.guid}" class="item">
 	<div class="date">
-		<fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd HH:mm:ss" />
+		<fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd HH:mm" />
 	</div>
 	<div class="title">
 		<a href="${item.link}">
