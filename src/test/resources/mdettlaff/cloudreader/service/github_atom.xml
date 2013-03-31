@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:/mdettlaff-mb/CloudReader/commits/master</id>
+  <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commits/master"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/mdettlaff-mb/CloudReader/commits/master.atom"/>
+  <title>Recent Commits to CloudReader:master</title>
+  <updated>2013-03-31T02:57:39-07:00</updated>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/51b761e3e51f52f8d56568f8e4d3a9200fc809be</id>
+    <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commit/51b761e3e51f52f8d56568f8e4d3a9200fc809be"/>
+    <title>
+        further server side development
+    </title>
+    <updated>2013-03-31T02:57:39-07:00</updated>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/479be8bca0419c2939f7739e86d69855?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"/>
+    <author>
+      <name></name>
+      <email>mdettlaff@jitsolutions.pl</email>
+    </author>
+    <content type="html">
+      &lt;pre>m pom.xml
+m src/main/java/mdettlaff/cloudreader/controller/HomeController.java
+m src/main/java/mdettlaff/cloudreader/dao/FeedItemDao.java
++ src/main/java/mdettlaff/cloudreader/domain/Feed.java
+m src/main/java/mdettlaff/cloudreader/domain/FeedItem.java
++ src/main/java/mdettlaff/cloudreader/domain/Subscription.java
++ src/main/java/mdettlaff/cloudreader/service/FeedDownloadService.java
++ src/main/java/mdettlaff/cloudreader/service/FeedParserService.java
+m src/main/java/mdettlaff/cloudreader/service/FeedService.java
++ src/main/resources/mdettlaff/cloudreader/service/qc_rss.xml
+m src/main/webapp/WEB-INF/view/index.jsp
+m src/test/java/mdettlaff/cloudreader/service/FeedParserServiceTest.java
+&lt;/pre>
+      &lt;pre style='white-space:pre-wrap;width:81ex'>further server side development&lt;/pre>
+    </content>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/5d6ba2fe380ced65eaa0ed32c409f24fbf00ce16</id>
+    <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commit/5d6ba2fe380ced65eaa0ed32c409f24fbf00ce16"/>
+    <title>
+        return JSON objects
+    </title>
+    <updated>2013-03-30T17:12:04-07:00</updated>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/479be8bca0419c2939f7739e86d69855?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"/>
+    <author>
+      <name></name>
+      <email>mdettlaff@jitsolutions.pl</email>
+    </author>
+    <content type="html">
+      &lt;pre>m pom.xml
+m src/main/java/mdettlaff/cloudreader/controller/HomeController.java
+m src/main/java/mdettlaff/cloudreader/dao/FeedItemDao.java
+m src/main/java/mdettlaff/cloudreader/service/FeedService.java
+&lt;/pre>
+      &lt;pre style='white-space:pre-wrap;width:81ex'>return JSON objects&lt;/pre>
+    </content>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/e4962cf81b04da700756454f0e7edce5557127da</id>
+    <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commit/e4962cf81b04da700756454f0e7edce5557127da"/>
+    <title>
+        html test
+    </title>
+    <updated>2013-03-30T14:35:05-07:00</updated>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/479be8bca0419c2939f7739e86d69855?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"/>
+    <author>
+      <name></name>
+      <email>mdettlaff@jitsolutions.pl</email>
+    </author>
+    <content type="html">
+      &lt;pre>+ jquery-1.9.1.js
++ jquery.hotkeys.js
++ test.html
+&lt;/pre>
+      &lt;pre style='white-space:pre-wrap;width:81ex'>html test&lt;/pre>
+    </content>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/88096331c415dd1e7ba7d639c7b39c205368d1cd</id>
+    <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commit/88096331c415dd1e7ba7d639c7b39c205368d1cd"/>
+    <title>
+        further server side development
+    </title>
+    <updated>2013-03-30T14:33:22-07:00</updated>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/479be8bca0419c2939f7739e86d69855?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"/>
+    <author>
+      <name></name>
+      <email>mdettlaff@jitsolutions.pl</email>
+    </author>
+    <content type="html">
+      &lt;pre>m src/main/java/mdettlaff/cloudreader/controller/HomeController.java
++ src/main/java/mdettlaff/cloudreader/dao/FeedItemDao.java
+- src/main/java/mdettlaff/cloudreader/domain/Feed.java
+m src/main/java/mdettlaff/cloudreader/domain/FeedItem.java
+m src/main/java/mdettlaff/cloudreader/service/FeedService.java
+m src/main/webapp/WEB-INF/view/index.jsp
+m src/test/java/mdettlaff/cloudreader/service/FeedServiceTest.java
+&lt;/pre>
+      &lt;pre style='white-space:pre-wrap;width:81ex'>further server side development&lt;/pre>
+    </content>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/21195af441a881be728e81895dbd6efe823e4e40</id>
+    <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commit/21195af441a881be728e81895dbd6efe823e4e40"/>
+    <title>
+        parsing feeds
+    </title>
+    <updated>2013-03-30T04:14:24-07:00</updated>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/479be8bca0419c2939f7739e86d69855?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"/>
+    <author>
+      <name></name>
+      <email>mdettlaff@jitsolutions.pl</email>
+    </author>
+    <content type="html">
+      &lt;pre>+ src/main/java/mdettlaff/cloudreader/domain/Feed.java
++ src/main/java/mdettlaff/cloudreader/domain/FeedItem.java
+m src/main/java/mdettlaff/cloudreader/service/FeedService.java
+- src/main/java/mdettlaff/comics/domain/Feed.java
+m src/main/webapp/WEB-INF/view/index.jsp
+m src/test/java/mdettlaff/cloudreader/service/FeedServiceTest.java
+m src/test/resources/mdettlaff/cloudreader/service/qc_rss.xml
+&lt;/pre>
+      &lt;pre style='white-space:pre-wrap;width:81ex'>parsing feeds&lt;/pre>
+    </content>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/026c17aaaf0cac8a58d05bb50628e4640710fffc</id>
+    <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commit/026c17aaaf0cac8a58d05bb50628e4640710fffc"/>
+    <title>
+        initial source structure
+    </title>
+    <updated>2013-03-30T03:35:11-07:00</updated>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/479be8bca0419c2939f7739e86d69855?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"/>
+    <author>
+      <name></name>
+      <email>mdettlaff@jitsolutions.pl</email>
+    </author>
+    <content type="html">
+      &lt;pre>m pom.xml
++ src/main/java/mdettlaff/cloudreader/controller/HomeController.java
++ src/main/java/mdettlaff/cloudreader/service/FeedService.java
++ src/main/java/mdettlaff/comics/domain/Feed.java
++ src/main/webapp/WEB-INF/dispatcher-servlet.xml
++ src/main/webapp/WEB-INF/view/index.jsp
++ src/main/webapp/WEB-INF/web.xml
++ src/main/webapp/resources/style.css
++ src/test/java/mdettlaff/cloudreader/service/FeedServiceTest.java
++ src/test/resources/mdettlaff/cloudreader/service/qc_rss.xml
+&lt;/pre>
+      &lt;pre style='white-space:pre-wrap;width:81ex'>initial source structure&lt;/pre>
+    </content>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Grit::Commit/5f1b94af1648e409a31031c0ed3254b8e4edcf44</id>
+    <link type="text/html" rel="alternate" href="https://github.com/mdettlaff-mb/CloudReader/commit/5f1b94af1648e409a31031c0ed3254b8e4edcf44"/>
+    <title>
+        initial commit without sources
+    </title>
+    <updated>2013-03-30T03:02:46-07:00</updated>
+    <media:thumbnail height="30" width="30" url="https://secure.gravatar.com/avatar/479be8bca0419c2939f7739e86d69855?s=30&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png"/>
+    <author>
+      <name></name>
+      <email>mdettlaff@jitsolutions.pl</email>
+    </author>
+    <content type="html">
+      &lt;pre>+ .gitignore
++ Procfile
++ deploy.sh
++ pom.xml
+&lt;/pre>
+      &lt;pre style='white-space:pre-wrap;width:81ex'>initial commit without sources&lt;/pre>
+    </content>
+  </entry>
+</feed>

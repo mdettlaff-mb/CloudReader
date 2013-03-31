@@ -11,9 +11,10 @@ public class FeedItem implements Comparable<FeedItem> {
 	private String title;
 	private String link;
 	private String description;
-	private Date publicationDate;
+	private Date date;
 	private Date downloadDate;
 	private String author;
+	private String uri;
 	private boolean read;
 
 	public String getGuid() {
@@ -56,12 +57,12 @@ public class FeedItem implements Comparable<FeedItem> {
 		this.description = description;
 	}
 
-	public Date getPublicationDate() {
-		return publicationDate;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setPublicationDate(Date publicationDate) {
-		this.publicationDate = publicationDate;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Date getDownloadDate() {
@@ -80,6 +81,15 @@ public class FeedItem implements Comparable<FeedItem> {
 		this.author = author;
 	}
 
+	@JsonIgnore
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
+
 	public boolean isRead() {
 		return read;
 	}
@@ -90,8 +100,8 @@ public class FeedItem implements Comparable<FeedItem> {
 
 	@Override
 	public int compareTo(FeedItem other) {
-		if (publicationDate != null && other.publicationDate != null) {
-			return publicationDate.compareTo(other.publicationDate);
+		if (date != null && other.date != null) {
+			return date.compareTo(other.date);
 		} else {
 			return downloadDate.compareTo(other.downloadDate);
 		}
@@ -101,9 +111,10 @@ public class FeedItem implements Comparable<FeedItem> {
 	public String getHashBase() {
 		StringBuilder builder = new StringBuilder();
 		builder.append(feed.getSubscription().getUrl());
+		builder.append(uri);
 		builder.append(link);
 		builder.append(title);
-		builder.append(publicationDate);
+		builder.append(date);
 		return builder.toString();
 	}
 }

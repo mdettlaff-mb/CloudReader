@@ -30,13 +30,17 @@ public class FeedDownloadService implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		downloadFeedItems();
+		refreshSubscriptions();
 	}
 
-	private void downloadFeedItems() throws FeedException, IOException {
-		Subscription subscription = new Subscription();
-//		subscription.setUrl("http://queencorner.ovh.org/rss.xml");
-		subscription.setUrl(getClass().getResource("qc_rss.xml").toString());
+	private void refreshSubscriptions() throws FeedException, IOException {
+		List<Subscription> subscriptions = dao.getSubscriptions();
+		for (Subscription subscription : subscriptions) {
+			downloadFeedItems(subscription);
+		}
+	}
+
+	private void downloadFeedItems(Subscription subscription) throws FeedException, IOException {
 		List<FeedItem> feedItems = feedParserService.parseFeed(new URL(subscription.getUrl()));
 		for (FeedItem item : feedItems) {
 			item.setDownloadDate(new Date());
@@ -47,6 +51,6 @@ public class FeedDownloadService implements InitializingBean {
 	}
 
 	private String createGuid(FeedItem item) {
-		return "i" + Hashing.sha1().newHasher().putString(item.getHashBase()).hash().toString();
+		return "item-" + Hashing.sha1().newHasher().putString(item.getHashBase()).hash().toString();
 	}
 }
