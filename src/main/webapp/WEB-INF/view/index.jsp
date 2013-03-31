@@ -7,11 +7,26 @@
 	<head>
 		<title>Cloud Reader</title>
 		<link rel="stylesheet" href="/resources/style.css" type="text/css">
+		<script src="/resources/jquery-1.9.1.js"></script>
+		<script src="/resources/jquery.hotkeys.js"></script>
+		<script src="/resources/cloudreader.js"></script>
 	</head>
 	<body>
 
-Hello!
-<hr>
+<div id="item1" class="item">
+	<hr>
+	<div class="title">first element</div>
+</div>
+
+<div id="item2" class="item">
+	<hr>
+	<div class="title">second element</div>
+</div>
+
+<div id="item3" class="item">
+	<hr>
+	<div class="title">third element</div>
+</div>
 
 <c:forEach items="${feedItems}" var="item">
 	${item.feed.subscription.url}<br>
@@ -22,6 +37,11 @@ Hello!
 	${item.description}
 	<hr>
 </c:forEach>
+
+<script>
+	$(document).bind('keydown', 'n j', goToNextItem);
+	$(document).bind('keydown', 'k', goToPreviousItem);
+</script>
 
 	</body>
 </html>

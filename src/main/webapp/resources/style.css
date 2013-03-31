@@ -1,7 +1,15 @@
-a {
-	text-decoration: none;
-}
-
 .error {
 	color: red;
+}
+
+.item {
+}
+
+.itemRead {
+	color: gray;
+}
+
+.current {
+	text-decoration: underline;
+	color: black;
 }
