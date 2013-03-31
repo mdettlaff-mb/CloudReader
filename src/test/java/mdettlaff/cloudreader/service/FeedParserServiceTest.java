@@ -1,12 +1,14 @@
 package mdettlaff.cloudreader.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
 
 import org.junit.Before;
@@ -24,12 +26,14 @@ public class FeedParserServiceTest {
 	@Test
 	public void testParseFeed_RSS() throws Exception {
 		URL feedSource = getClass().getResource("qc_rss.xml");
-		List<FeedItem> items = service.parseFeed(feedSource);
+		Feed feed = service.parseFeed(feedSource);
+		List<FeedItem> items = feed.getItems();
 		assertEquals(25, items.size());
 		FeedItem item = items.get(4);
-		assertTrue(item.getFeed().getUrl().matches("file:.*qc_rss.xml"));
-		assertEquals("Queen Corner online", item.getFeed().getTitle());
-		assertEquals("http://queencorner.ovh.org", item.getFeed().getLink());
+		assertSame(feed, item.getFeed());
+		assertTrue(feed.getUrl().matches("file:.*qc_rss.xml"));
+		assertEquals("Queen Corner online", feed.getTitle());
+		assertEquals("http://queencorner.ovh.org", feed.getLink());
 		assertEquals("Queen w filmie Sucker Punch", item.getTitle());
 		assertEquals("http://queencorner.ovh.org/index.php?go=news#25-03-2011", item.getLink());
 		assertEquals("W filmie Sucker Punch został użyty mashup dwóch piosenek Queen WWRY i I want it all autorstwa rapera <b>Terror Squad i Armageddon.</b>", item.getDescription());
@@ -42,12 +46,14 @@ public class FeedParserServiceTest {
 	@Test
 	public void testParseFeed_Atom() throws Exception {
 		URL feedSource = getClass().getResource("github_atom.xml");
-		List<FeedItem> items = service.parseFeed(feedSource);
+		Feed feed = service.parseFeed(feedSource);
+		List<FeedItem> items = feed.getItems();
 		assertEquals(7, items.size());
 		FeedItem item = items.get(1);
-		assertTrue(item.getFeed().getUrl().matches("file:.*github_atom.xml"));
-		assertEquals("Recent Commits to CloudReader:master", item.getFeed().getTitle());
-		assertEquals("https://github.com/mdettlaff-mb/CloudReader/commits/master", item.getFeed().getLink());
+		assertSame(feed, item.getFeed());
+		assertTrue(feed.getUrl().matches("file:.*github_atom.xml"));
+		assertEquals("Recent Commits to CloudReader:master", feed.getTitle());
+		assertEquals("https://github.com/mdettlaff-mb/CloudReader/commits/master", feed.getLink());
 		assertEquals("return JSON objects", item.getTitle());
 		assertEquals("https://github.com/mdettlaff-mb/CloudReader/commit/5d6ba2fe380ced65eaa0ed32c409f24fbf00ce16", item.getLink());
 		assertEquals("<pre>m pom.xml\n" + 

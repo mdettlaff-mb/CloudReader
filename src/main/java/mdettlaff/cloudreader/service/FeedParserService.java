@@ -22,7 +22,7 @@ import com.sun.syndication.io.XmlReader;
 @Service
 public class FeedParserService {
 
-	public List<FeedItem> parseFeed(URL feedSource) throws FeedException, IOException {
+	public Feed parseFeed(URL feedSource) throws FeedException, IOException {
 		SyndFeedInput input = new SyndFeedInput();
 		SyndFeed syndFeed = input.build(new XmlReader(feedSource));
 		Feed feed = new Feed(feedSource.toString());
@@ -34,7 +34,8 @@ public class FeedParserService {
 			item.setFeed(feed);
 			items.add(item);
 		}
-		return items;
+		feed.setItems(items);
+		return feed;
 	}
 
 	private FeedItem createFeedItem(SyndEntry entry) {

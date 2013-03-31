@@ -49,12 +49,12 @@ public class FeedDownloadService implements InitializingBean {
 
 	private void downloadFeedItems(URL feedUrl) throws FeedException, IOException {
 		log.info("downloading " + feedUrl);
-		List<FeedItem> feedItems = feedParserService.parseFeed(feedUrl);
-		for (FeedItem item : feedItems) {
+		Feed feed = feedParserService.parseFeed(feedUrl);
+		for (FeedItem item : feed.getItems()) {
 			item.setDownloadDate(new Date());
 			item.setGuid(createGuid(item));
 		}
-		dao.save(feedItems);
+		dao.save(feed);
 		log.info("feed " + feedUrl + " saved");
 	}
 

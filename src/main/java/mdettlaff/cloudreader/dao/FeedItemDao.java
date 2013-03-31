@@ -16,8 +16,8 @@ public class FeedItemDao {
 
 	private Map<String, FeedItem> database = new HashMap<>();
 	
-	public void save(List<FeedItem> items) {
-		for (FeedItem item : items) {
+	public void save(Feed feed) {
+		for (FeedItem item : feed.getItems()) {
 			if (!database.containsKey(item.getGuid())) {
 				database.put(item.getGuid(), item);
 			}
