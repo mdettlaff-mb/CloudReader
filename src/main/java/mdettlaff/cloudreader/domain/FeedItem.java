@@ -2,36 +2,34 @@ package mdettlaff.cloudreader.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class FeedItem implements Comparable<FeedItem> {
 
-	private String id;
-	private String feedTitle;
+	private String guid;
+	private Feed feed;
 	private String title;
 	private String link;
 	private String description;
 	private Date publicationDate;
-	private Date creationDate;
+	private Date downloadDate;
 	private String author;
 	private boolean read;
 
-	public FeedItem() {
-		creationDate = new Date();
+	public String getGuid() {
+		return guid;
 	}
 
-	public String getId() {
-		return id;
+	public void setGuid(String guid) {
+		this.guid = guid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public Feed getFeed() {
+		return feed;
 	}
 
-	public String getFeedTitle() {
-		return feedTitle;
-	}
-
-	public void setFeedTitle(String feedTitle) {
-		this.feedTitle = feedTitle;
+	public void setFeed(Feed feed) {
+		this.feed = feed;
 	}
 
 	public String getTitle() {
@@ -66,12 +64,12 @@ public class FeedItem implements Comparable<FeedItem> {
 		this.publicationDate = publicationDate;
 	}
 
-	public Date getCreationDate() {
-		return creationDate;
+	public Date getDownloadDate() {
+		return downloadDate;
 	}
 
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
+	public void setDownloadDate(Date downloadDate) {
+		this.downloadDate = downloadDate;
 	}
 
 	public String getAuthor() {
@@ -92,6 +90,20 @@ public class FeedItem implements Comparable<FeedItem> {
 
 	@Override
 	public int compareTo(FeedItem other) {
-		return publicationDate.compareTo(other.publicationDate);
+		if (publicationDate != null && other.publicationDate != null) {
+			return publicationDate.compareTo(other.publicationDate);
+		} else {
+			return downloadDate.compareTo(other.downloadDate);
+		}
+	}
+
+	@JsonIgnore
+	public String getHashBase() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(feed.getSubscription().getUrl());
+		builder.append(link);
+		builder.append(title);
+		builder.append(publicationDate);
+		return builder.toString();
 	}
 }

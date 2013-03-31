@@ -34,12 +34,11 @@ public class HomeController {
 
 	@RequestMapping("/items/{id}/read")
 	public void markAsRead(@PathVariable("id") String id) {
-		System.out.println("mark as read: " + id);
 		service.markAsRead(id);
 	}
 
 	@RequestMapping("/items")
-	public @ResponseBody List<FeedItem> items(@RequestBody List<String> unreadFeedItemsIds) throws Exception {
-		return service.getFeedItems(unreadFeedItemsIds);
+	public @ResponseBody List<FeedItem> items(@RequestBody List<String> unreadFeedItemsGuids) throws Exception {
+		return service.getFeedItems(unreadFeedItemsGuids);
 	}
 }

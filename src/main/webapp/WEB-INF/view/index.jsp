@@ -11,9 +11,12 @@
 	<body>
 
 Hello!
+<hr>
 
 <c:forEach items="${feedItems}" var="item">
-	${item.feedTitle}<br>
+	${item.feed.subscription.url}<br>
+	${item.feed.title}<br>
+	${item.feed.link}<br>
 	${item.title}<br>
 	${item.link}<br>
 	${item.description}
