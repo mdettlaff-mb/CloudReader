@@ -1,8 +1,6 @@
 package mdettlaff.cloudreader.service;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,8 @@ import com.sun.syndication.io.FeedException;
 @Service
 public class FeedService {
 
-	private static final int BUFFER_SIZE = 8;
+	private static final int INITIAL_SIZE = 14;
+	private static final int BUFFER_SIZE = 4;
 
 	private final FeedItemDao dao;
 
@@ -26,11 +25,11 @@ public class FeedService {
 		this.dao = dao;
 	}
 
-	public List<FeedItem> getFeedItems() throws URISyntaxException, FeedException, IOException {
-		return getFeedItems(new ArrayList<String>());
+	public List<FeedItem> getFeedItems() throws FeedException, IOException {
+		return dao.findUnread(INITIAL_SIZE, new ArrayList<String>());
 	}
 
-	public List<FeedItem> getFeedItems(List<String> unreadFeedItemsGuids) throws MalformedURLException, IOException, FeedException {
+	public List<FeedItem> getFeedItems(List<String> unreadFeedItemsGuids) throws FeedException, IOException {
 		return dao.findUnread(BUFFER_SIZE, unreadFeedItemsGuids);
 	}
 

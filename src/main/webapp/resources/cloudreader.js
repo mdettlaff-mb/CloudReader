@@ -55,7 +55,7 @@
 	}
 	
 	function goToItem(itemSelector) {
-		var LOAD_THRESHOLD = 4;
+		var LOAD_THRESHOLD = 10;
 		var currentItem = $('.itemCurrent');
 		var newItem;
 		if (currentItem.length == 0) {
@@ -72,7 +72,7 @@
 			newItem.addClass('itemRead');
 			newItem.addClass('itemCurrent');
 			var remainingCount = newItem.nextAll('.item').length;
-			if (remainingCount <= LOAD_THRESHOLD) {
+			if (remainingCount < LOAD_THRESHOLD) {
 				loadMoreItems(newItem);
 			}
 			newItem[0].scrollIntoView();
