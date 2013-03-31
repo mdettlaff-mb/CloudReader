@@ -15,9 +15,16 @@
 		$('.title a', clonedItem).html(downloadedItem.title);
 		$('.title a', clonedItem).attr("href", downloadedItem.link);
 		$('.description', clonedItem).html(downloadedItem.description);
+		$('.date', clonedItem).html(formatDate(new Date(parseInt(downloadedItem.date))));
 		clonedItem.insertAfter(lastItem);
 	}
 	
+	function formatDate(date) {
+		var datePart = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+		var timePart = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		return datePart + ' ' + timePart;
+	}
+
 	function loadMoreItems(currentItem) {
 		var unreadItemsIds = currentItem.nextAll('.item:not(.itemRead)').map(function () {
 			return this.id;

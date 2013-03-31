@@ -24,6 +24,9 @@ No items to display.
 </c:if>
 <c:forEach items="${feedItems}" var="item">
 <div id="${item.guid}" class="item">
+	<div class="date">
+		<fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd HH:mm:ss" />
+	</div>
 	<div class="title">
 		<a href="${item.link}">
 			${item.title}

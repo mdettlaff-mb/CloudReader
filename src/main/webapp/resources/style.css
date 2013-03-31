@@ -16,6 +16,10 @@
 	font-size: 125%;
 }
 
+.date {
+	float: right;
+}
+
 .description {
 	margin-top: 5px;
 }
