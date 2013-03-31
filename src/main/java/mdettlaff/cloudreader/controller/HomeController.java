@@ -10,7 +10,9 @@ import mdettlaff.cloudreader.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,7 +39,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/items")
-	public List<FeedItem> items(List<String> unreadFeedItemsIds) {
+	public @ResponseBody List<FeedItem> items(@RequestBody List<String> unreadFeedItemsIds) throws Exception {
 		return service.getFeedItems(unreadFeedItemsIds);
 	}
 }

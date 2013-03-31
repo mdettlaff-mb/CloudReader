@@ -33,15 +33,15 @@ public class FeedService {
 	}
 	
 	public List<FeedItem> getFeedItems() throws URISyntaxException, FeedException, IOException {
-		if (dao.findUnread(BUFFER_SIZE).isEmpty()) {
+		return getFeedItems(new ArrayList<String>());
+	}
+
+	public List<FeedItem> getFeedItems(List<String> unreadFeedItemsIds) throws MalformedURLException, IOException, FeedException {
+		if (dao.findUnread(BUFFER_SIZE, unreadFeedItemsIds).isEmpty()) {
 			List<FeedItem> downloaded = downloadFeedItems();
 			dao.save(downloaded);
 		}
-		return dao.findUnread(BUFFER_SIZE);
-	}
-
-	public List<FeedItem> getFeedItems(List<String> unreadFeedItemsIds) {
-		return dao.findUnread(unreadFeedItemsIds, BUFFER_SIZE);
+		return dao.findUnread(BUFFER_SIZE, unreadFeedItemsIds);
 	}
 
 	public void markAsRead(String feedItemId) {
