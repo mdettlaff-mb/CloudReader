@@ -3,6 +3,8 @@
 }
 
 .item {
+	border: 1px gray solid;
+	padding: 7px;
 }
 
 .itemRead {
@@ -10,6 +12,6 @@
 }
 
 .current {
-	text-decoration: underline;
+	border: 2px blue solid;
 	color: black;
 }

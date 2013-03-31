@@ -1,28 +1,29 @@
 function loadMoreItems(currentItem) {
-	var unreadItems = currentItem.nextAll('.item');
-	var unreadItemsIds = [];
-	for (var i = 0; i < unreadItems.length; i++) {
-		unreadItemsIds.push(unreadItems[i].id);
-	}
-	//alert('unread items IDs: ' + unreadItemsIds);
-	var downloadedItems = [
-		{guid: 'item6', title: 'sixth element'},
-		{guid: 'item7', title: 'seventh element'},
-		{guid: 'item8', title: 'eighth element'}
-	];
-	for (var i = 0; i < downloadedItems.length; i++) {
-		var lastItem = $('.item').last();
-		var lastItemId = lastItem[0].id;
-		var newItem = lastItem.clone();
-		var downloadedItem = downloadedItems[i];
-		newItem[0].id = downloadedItem.guid;
-		$('.title', newItem).text(downloadedItem.title);
-		newItem.insertAfter(lastItem);
-	}
+	var unreadItemsIds = currentItem.nextAll('.item:not(.itemRead)').map(function() {
+		return this.id;
+	}).get();
+	$.ajax({
+		url: "/items",
+		type: "post",
+		contentType: 'application/json',
+		data: JSON.stringify(unreadItemsIds)
+	}).done(function (downloadedItems) {
+		for (var i = 0; i < downloadedItems.length; i++) {
+			var lastItem = $('.item').last();
+			var lastItemId = lastItem[0].id;
+			var clonedItem = lastItem.clone();
+			var downloadedItem = downloadedItems[i];
+			clonedItem[0].id = downloadedItem.guid;
+			$('.feedTitle', clonedItem).html(downloadedItem.feed.title);
+			$('.title', clonedItem).html(downloadedItem.title);
+			$('.description', clonedItem).html(downloadedItem.description);
+			clonedItem.insertAfter(lastItem);
+		}
+	});
 }
 
 function goToItem(itemSelector) {
-	var LOAD_THRESHOLD = 2;
+	var LOAD_THRESHOLD = 4;
 	var currentItem = $('.current');
 	var newItem;
 	if (currentItem.length == 0) {
@@ -32,7 +33,8 @@ function goToItem(itemSelector) {
 	}
 	if (newItem.length == 1) {
 		if (!newItem.hasClass('itemRead')) {
-			//alert('mark as read: ' + newItem[0].id);
+			var readItemId = newItem[0].id;
+			$.post("/items/" + readItemId + "/read");
 		}
 		currentItem.removeClass('current');
 		newItem.addClass('itemRead');
@@ -46,13 +48,18 @@ function goToItem(itemSelector) {
 }
 
 function goToNextItem() {
-	goToItem(function(currentItem) {
+	goToItem(function (currentItem) {
 		return currentItem.next('.item');
 	});
 }
 
 function goToPreviousItem() {
-	goToItem(function(currentItem) {
+	goToItem(function (currentItem) {
 		return currentItem.prev('.item');
 	});
+}
+
+function initCloudReaderHotkeys() {
+	$(document).bind('keydown', 'n j', goToNextItem);
+	$(document).bind('keydown', 'k', goToPreviousItem);
 }

@@ -10,38 +10,28 @@
 		<script src="/resources/jquery-1.9.1.js"></script>
 		<script src="/resources/jquery.hotkeys.js"></script>
 		<script src="/resources/cloudreader.js"></script>
+		<script>
+			$(document).ready(function () {
+				initCloudReaderHotkeys();
+			});
+		</script>
 	</head>
 	<body>
 
-<div id="item1" class="item">
-	<hr>
-	<div class="title">first element</div>
-</div>
 
-<div id="item2" class="item">
-	<hr>
-	<div class="title">second element</div>
-</div>
-
-<div id="item3" class="item">
-	<hr>
-	<div class="title">third element</div>
-</div>
-
+<c:if test="${empty feedItems}">
+No items to display.
+</c:if>
 <c:forEach items="${feedItems}" var="item">
-	${item.feed.subscription.url}<br>
-	${item.feed.title}<br>
+<div id="${item.guid}" class="item">
+	<div class="feedTitle">${item.feed.title}</div>
 	${item.feed.link}<br>
-	${item.title}<br>
+	<div class="title">${item.title}</div>
 	${item.link}<br>
-	${item.description}
-	<hr>
+	<div class="description">${item.description}</div>
+</div>
 </c:forEach>
 
-<script>
-	$(document).bind('keydown', 'n j', goToNextItem);
-	$(document).bind('keydown', 'k', goToPreviousItem);
-</script>
 
 	</body>
 </html>

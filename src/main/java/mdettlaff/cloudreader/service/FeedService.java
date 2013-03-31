@@ -17,7 +17,7 @@ import com.sun.syndication.io.FeedException;
 @Service
 public class FeedService {
 
-	private static final int BUFFER_SIZE = 5;
+	private static final int BUFFER_SIZE = 8;
 	
 	private final FeedItemDao dao;
 
