@@ -56,7 +56,7 @@ public class FeedDownloadService implements InitializingBean {
 			item.setGuid(createGuid(item));
 		}
 		dao.save(feedItems);
-		log.info("subscription saved");
+		log.info("subscription " + subscription.getUrl() + " saved");
 	}
 
 	private String createGuid(FeedItem item) {

@@ -18,14 +18,14 @@ import com.sun.syndication.io.FeedException;
 public class FeedService {
 
 	private static final int BUFFER_SIZE = 8;
-	
+
 	private final FeedItemDao dao;
 
 	@Autowired
 	public FeedService(FeedItemDao dao) {
 		this.dao = dao;
 	}
-	
+
 	public List<FeedItem> getFeedItems() throws URISyntaxException, FeedException, IOException {
 		return getFeedItems(new ArrayList<String>());
 	}
