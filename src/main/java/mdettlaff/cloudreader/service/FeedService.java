@@ -36,4 +36,8 @@ public class FeedService {
 	public void markItemAsRead(String feedItemGuid) {
 		dao.markItemAsRead(feedItemGuid);
 	}
+
+	public int countUnreadItems() {
+		return dao.countUnread();
+	}
 }

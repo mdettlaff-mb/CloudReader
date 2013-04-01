@@ -43,4 +43,9 @@ public class HomeController {
 	public @ResponseBody List<FeedItem> fetchMoreItems(@RequestBody List<String> unreadFeedItemsGuids) throws Exception {
 		return service.getFeedItems(unreadFeedItemsGuids);
 	}
+
+	@RequestMapping(value = "/items/unread/count", method = RequestMethod.GET)
+	public @ResponseBody int countUnreadItems() {
+		return service.countUnreadItems();
+	}
 }

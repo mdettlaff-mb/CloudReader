@@ -6,10 +6,19 @@
 		$(document).bind('keydown', 'n j', goToNextItem);
 		$(document).bind('keydown', 'k', goToPreviousItem);
 		$(document).bind('keydown', 'v', openItemLink);
+		$(document).bind('keydown', 'u', countUnreadItems);
 	}
 
 
 	// private
+
+	function countUnreadItems() {
+		$.ajax({
+			url: '/items/unread/count'
+		}).done(function (unreadCount) {
+			alert(unreadCount + ' unread items left.');
+		});
+	}
 
 	function openItemLink() {
 		var currentItemLink = $('.itemCurrent .title a').attr('href');

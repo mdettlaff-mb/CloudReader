@@ -42,6 +42,16 @@ public class FeedItemDao {
 		return result;
 	}
 
+	public int countUnread() {
+		int sum = 0;
+		for (FeedItem item : database.values()) {
+			if (!item.isRead()) {
+				sum++;
+			}
+		}
+		return sum;
+	}
+
 	public List<Feed> getFeeds() {
 		List<Feed> result = new ArrayList<>();
 //		result.add(new Feed("http://queencorner.ovh.org/rss.xml"));
