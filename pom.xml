@@ -11,9 +11,7 @@
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 		<spring.version>3.1.2.RELEASE</spring.version>
-		<!-- TODO update Hibernate version -->
-		<!--<version>4.1.9.Final</version>-->
-		<hibernate.version>3.6.3.Final</hibernate.version>
+		<hibernate.version>4.1.9.Final</hibernate.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -66,6 +64,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
