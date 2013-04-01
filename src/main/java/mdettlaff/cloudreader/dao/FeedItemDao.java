@@ -62,6 +62,12 @@ public class FeedItemDao {
 		return result;
 	}
 
+	public void updateRead(String guid, boolean read) {
+		FeedItem item = em.find(FeedItem.class, guid);
+		item.setRead(read);
+		em.flush();
+	}
+
 
 	private Map<String, FeedItem> database = new HashMap<>();
 	

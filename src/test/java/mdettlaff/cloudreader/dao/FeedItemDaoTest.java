@@ -122,6 +122,16 @@ public class FeedItemDaoTest extends AbstractPersistenceTestContext {
 		assertEquals("My added item 1", newItems.get(2).getTitle());
 	}
 
+	@Test
+	@Transactional
+	public void testUpdateRead() {
+		// exercise
+		dao.updateRead("item-0001", true);
+		// verify
+		FeedItem result = em.find(FeedItem.class, "item-0001");
+		assertEquals(true, result.isRead());
+	}
+
 	private FeedItem prepareItem(String guid, String title, Feed feed) {
 		FeedItem item = new FeedItem();
 		item.setGuid(guid);
