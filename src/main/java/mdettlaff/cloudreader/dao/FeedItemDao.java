@@ -29,11 +29,19 @@ public class FeedItemDao {
 	public List<FeedItem> find(boolean read, int limit, List<String> feedItemsGuidsToExclude) {
 		return em.createQuery(
 				"FROM FeedItem i " +
-				"WHERE i.read = false AND i.guid NOT IN :guids " +
+				"WHERE i.read = :read AND i.guid NOT IN :guids " +
 				"ORDER BY i.date")
+				.setParameter("read", read)
 				.setParameter("guids", feedItemsGuidsToExclude)
 				.setMaxResults(limit)
 				.getResultList();
+	}
+
+	public long count(boolean read) {
+		return (long) em.createQuery(
+				"SELECT COUNT(i) FROM FeedItem i WHERE i.read = :read")
+				.setParameter("read", read)
+				.getSingleResult();
 	}
 
 

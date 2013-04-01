@@ -48,4 +48,13 @@ public class FeedItemDaoTest extends AbstractPersistenceTestContext {
 		assertEquals("item-0003", results.get(1).getGuid());
 		assertEquals("item-0005", results.get(2).getGuid());
 	}
+
+	@Test
+	@Transactional
+	public void testCount() {
+		// exercise
+		long result = dao.count(false);
+		// verify
+		assertEquals(6, result);
+	}
 }
