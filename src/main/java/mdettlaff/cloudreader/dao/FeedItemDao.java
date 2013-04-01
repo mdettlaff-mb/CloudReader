@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
@@ -23,14 +24,19 @@ public class FeedItemDao {
 
 	@SuppressWarnings("unchecked")
 	public List<FeedItem> find(boolean read, int limit, List<String> feedItemsGuidsToExclude) {
-		return em.createQuery(
-				"FROM FeedItem i " +
-				"WHERE i.read = :read AND i.guid NOT IN :guids " +
-				"ORDER BY i.date")
-				.setParameter("read", read)
-				.setParameter("guids", feedItemsGuidsToExclude)
-				.setMaxResults(limit)
-				.getResultList();
+		StringBuilder queryBuilder = new StringBuilder();
+		queryBuilder.append("FROM FeedItem i ");
+		queryBuilder.append("WHERE i.read = :read ");
+		if (!feedItemsGuidsToExclude.isEmpty()) {
+			queryBuilder.append("AND i.guid NOT IN :guids ");
+		}
+		queryBuilder.append("ORDER BY i.date");
+		Query query = em.createQuery(queryBuilder.toString());
+		query.setParameter("read", read);
+		if (!feedItemsGuidsToExclude.isEmpty()) {
+			query.setParameter("guids", feedItemsGuidsToExclude);
+		}
+		return query.setMaxResults(limit).getResultList();
 	}
 
 	public long count(boolean read) {

@@ -63,6 +63,23 @@ public class FeedItemDaoTest extends AbstractPersistenceTestContext {
 
 	@Test
 	@Transactional
+	public void testFind_EmptyList() {
+		// prepare data
+		List<String> guidsToExclude = new ArrayList<>();
+		// exercise
+		List<FeedItem> results = dao.find(true, 1, guidsToExclude);
+		// verify
+		assertEquals(1, results.size());
+		FeedItem result = results.get(0);
+		assertEquals("item-0007", result.getGuid());
+		assertEquals(true, result.isRead());
+		assertEquals("My item 7", result.getTitle());
+		assertEquals("url2", result.getFeed().getUrl());
+		assertEquals("My feed 2", result.getFeed().getTitle());
+	}
+
+	@Test
+	@Transactional
 	public void testCount() {
 		// exercise
 		long result = dao.count(false);
