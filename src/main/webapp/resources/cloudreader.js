@@ -41,6 +41,8 @@
 		var lastItem = $('.item').last();
 		var lastItemId = lastItem[0].id;
 		var clonedItem = lastItem.clone();
+		clonedItem.removeClass('itemCurrent');
+		clonedItem.removeClass('itemRead');
 		clonedItem[0].id = downloadedItem.guid;
 		$('.feedTitle a', clonedItem).html(downloadedItem.feed.title);
 		$('.feedTitle a', clonedItem).attr('href', downloadedItem.feed.link);
