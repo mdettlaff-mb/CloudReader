@@ -48,7 +48,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/items/unread/count", method = RequestMethod.GET)
-	public @ResponseBody int countUnreadItems() {
+	public @ResponseBody long countUnreadItems() {
 		return service.countUnreadItems();
 	}
 

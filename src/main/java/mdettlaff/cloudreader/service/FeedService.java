@@ -26,18 +26,18 @@ public class FeedService {
 	}
 
 	public List<FeedItem> getFeedItems() throws FeedException, IOException {
-		return dao.findUnread(INITIAL_SIZE, new ArrayList<String>());
+		return dao.find(false, INITIAL_SIZE, new ArrayList<String>());
 	}
 
 	public List<FeedItem> getFeedItems(List<String> unreadFeedItemsGuids) throws FeedException, IOException {
-		return dao.findUnread(BUFFER_SIZE, unreadFeedItemsGuids);
+		return dao.find(false, BUFFER_SIZE, unreadFeedItemsGuids);
 	}
 
 	public void markItemAsRead(String feedItemGuid) {
-		dao.markItemAsRead(feedItemGuid);
+		dao.updateRead(feedItemGuid, true);
 	}
 
-	public int countUnreadItems() {
-		return dao.countUnread();
+	public long countUnreadItems() {
+		return dao.count(false);
 	}
 }

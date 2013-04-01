@@ -31,7 +31,7 @@ public class FeedDownloadService {
 	}
 
 	public int updateFeeds() {
-		List<Feed> feeds = dao.getFeeds();
+		List<Feed> feeds = dao.findFeeds();
 		int totalInsertedItemsCount = 0;
 		for (Feed feed : feeds) {
 			try {
@@ -51,7 +51,7 @@ public class FeedDownloadService {
 			item.setDownloadDate(new Date());
 			item.setGuid(createGuid(item));
 		}
-		int insertedItemsCount = dao.save(feed);
+		int insertedItemsCount = dao.saveFeed(feed);
 		log.info("feed " + feedUrl + " saved");
 		return insertedItemsCount;
 	}
