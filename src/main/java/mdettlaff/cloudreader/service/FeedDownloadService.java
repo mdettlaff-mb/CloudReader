@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import mdettlaff.cloudreader.dao.FeedItemDao;
-import mdettlaff.cloudreader.domain.FeedItem;
 import mdettlaff.cloudreader.domain.Feed;
+import mdettlaff.cloudreader.domain.FeedItem;
 
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +17,7 @@ import com.google.common.hash.Hashing;
 import com.sun.syndication.io.FeedException;
 
 @Service
-public class FeedDownloadService implements InitializingBean {
+public class FeedDownloadService {
 
 	private static final Logger log = Logger.getLogger(FeedDownloadService.class.getName());
 
@@ -31,31 +30,30 @@ public class FeedDownloadService implements InitializingBean {
 		this.dao = dao;
 	}
 
-	@Override
-	public void afterPropertiesSet() {
-		refreshFeeds();
-	}
-
-	private void refreshFeeds() {
+	public int updateFeeds() {
 		List<Feed> feeds = dao.getFeeds();
+		int totalInsertedItemsCount = 0;
 		for (Feed feed : feeds) {
 			try {
-				downloadFeedItems(new URL(feed.getUrl()));
+				int insertedItemsCount = downloadFeedItems(new URL(feed.getUrl()));
+				totalInsertedItemsCount += insertedItemsCount;
 			} catch (FeedException | IOException e) {
 				log.warning("cannot download feed " + feed.getUrl() + ", cause: " + e);
 			}
 		}
+		return totalInsertedItemsCount;
 	}
 
-	private void downloadFeedItems(URL feedUrl) throws FeedException, IOException {
+	private int downloadFeedItems(URL feedUrl) throws FeedException, IOException {
 		log.info("downloading " + feedUrl);
 		Feed feed = feedParserService.parseFeed(feedUrl);
 		for (FeedItem item : feed.getItems()) {
 			item.setDownloadDate(new Date());
 			item.setGuid(createGuid(item));
 		}
-		dao.save(feed);
+		int insertedItemsCount = dao.save(feed);
 		log.info("feed " + feedUrl + " saved");
+		return insertedItemsCount;
 	}
 
 	private String createGuid(FeedItem item) {

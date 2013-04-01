@@ -16,12 +16,15 @@ public class FeedItemDao {
 
 	private Map<String, FeedItem> database = new HashMap<>();
 	
-	public void save(Feed feed) {
+	public int save(Feed feed) {
+		int insertedItemsCount = 0;
 		for (FeedItem item : feed.getItems()) {
 			if (!database.containsKey(item.getGuid())) {
 				database.put(item.getGuid(), item);
+				insertedItemsCount++;
 			}
 		}
+		return insertedItemsCount;
 	}
 	
 	public void markItemAsRead(String feedItemGuid) {

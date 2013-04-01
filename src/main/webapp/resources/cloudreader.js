@@ -6,11 +6,21 @@
 		$(document).bind('keydown', 'n j', goToNextItem);
 		$(document).bind('keydown', 'k', goToPreviousItem);
 		$(document).bind('keydown', 'v', openItemLink);
-		$(document).bind('keydown', 'u', countUnreadItems);
+		$(document).bind('keydown', 'i', countUnreadItems);
+		$(document).bind('keydown', 'd', updateFeeds);
 	}
 
 
 	// private
+
+	function updateFeeds() {
+		$.ajax({
+			url: '/items/update',
+			type: 'post'
+		}).done(function (downloadedItemsCount) {
+			alert(downloadedItemsCount + ' new items.');
+		});
+	}
 
 	function countUnreadItems() {
 		$.ajax({

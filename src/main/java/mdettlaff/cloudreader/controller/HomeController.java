@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import mdettlaff.cloudreader.domain.FeedItem;
+import mdettlaff.cloudreader.service.FeedDownloadService;
 import mdettlaff.cloudreader.service.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
 	private final FeedService service;
+	private final FeedDownloadService downloadService;
 
 	@Autowired
-	public HomeController(FeedService service) {
+	public HomeController(FeedService service, FeedDownloadService downloadService) {
 		this.service = service;
+		this.downloadService = downloadService;
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
@@ -47,5 +50,10 @@ public class HomeController {
 	@RequestMapping(value = "/items/unread/count", method = RequestMethod.GET)
 	public @ResponseBody int countUnreadItems() {
 		return service.countUnreadItems();
+	}
+
+	@RequestMapping(value = "/items/update", method = RequestMethod.POST)
+	public @ResponseBody int updateFeeds() {
+		return downloadService.updateFeeds();
 	}
 }
