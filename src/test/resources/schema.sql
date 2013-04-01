@@ -14,6 +14,6 @@ CREATE TABLE FeedItem (
 	downloadDate DATETIME,
 	author VARCHAR(255),
 	uri VARCHAR(255),
-	read VARCHAR(8),
+	read BOOLEAN,
 	FOREIGN KEY(feed_url) REFERENCES Feed(url)
 );

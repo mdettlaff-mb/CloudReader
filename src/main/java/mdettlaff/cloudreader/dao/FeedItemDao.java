@@ -22,7 +22,18 @@ public class FeedItemDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Feed> findFeeds() {
-		return em.createQuery( "FROM Feed i ORDER BY i.url").getResultList();
+		return em.createQuery("FROM Feed f ORDER BY f.url").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<FeedItem> find(boolean read, int limit, List<String> feedItemsGuidsToExclude) {
+		return em.createQuery(
+				"FROM FeedItem i " +
+				"WHERE i.read = false AND i.guid NOT IN :guids " +
+				"ORDER BY i.date")
+				.setParameter("guids", feedItemsGuidsToExclude)
+				.setMaxResults(limit)
+				.getResultList();
 	}
 
 
