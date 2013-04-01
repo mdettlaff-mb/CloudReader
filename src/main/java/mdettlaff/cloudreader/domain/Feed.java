@@ -2,14 +2,24 @@ package mdettlaff.cloudreader.domain;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 public class Feed {
 
+	@Id
 	private String url;
 	private String title;
 	private String link;
+	@OneToMany
 	private List<FeedItem> items;
+
+	public Feed() {
+	}
 
 	public Feed(String url) {
 		this.url = url;

@@ -2,11 +2,18 @@ package mdettlaff.cloudreader.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 public class FeedItem implements Comparable<FeedItem> {
 
+	@Id
 	private String guid;
+	@ManyToOne
 	private Feed feed;
 	private String title;
 	private String link;

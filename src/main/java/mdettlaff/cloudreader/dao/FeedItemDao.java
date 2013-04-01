@@ -6,13 +6,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import mdettlaff.cloudreader.domain.FeedItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import mdettlaff.cloudreader.domain.Feed;
+import mdettlaff.cloudreader.domain.FeedItem;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class FeedItemDao {
+
+	@PersistenceContext
+	private EntityManager em;
+
+	@SuppressWarnings("unchecked")
+	public List<Feed> findFeeds() {
+		return em.createQuery( "FROM Feed i ORDER BY i.url").getResultList();
+	}
+
 
 	private Map<String, FeedItem> database = new HashMap<>();
 	

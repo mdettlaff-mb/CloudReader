@@ -1,0 +1,19 @@
+CREATE TABLE Feed (
+	url VARCHAR(255) NOT NULL PRIMARY KEY,
+	title VARCHAR(255),
+	link VARCHAR(255)
+);
+
+CREATE TABLE FeedItem (
+	guid VARCHAR(255) NOT NULL PRIMARY KEY,
+	feed_url VARCHAR(255) NOT NULL,
+	title VARCHAR(255),
+	link VARCHAR(255),
+	description VARCHAR(255),
+	date DATETIME,
+	downloadDate DATETIME,
+	author VARCHAR(255),
+	uri VARCHAR(255),
+	read VARCHAR(8),
+	FOREIGN KEY(feed_url) REFERENCES Feed(url)
+);
