@@ -13,7 +13,7 @@ public class FeedItem implements Comparable<FeedItem> {
 
 	@Id
 	private String guid;
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Feed feed;
 	private String title;
 	private String link;

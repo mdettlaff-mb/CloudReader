@@ -25,7 +25,7 @@
 		p:packagesToScan="mdettlaff.cloudreader" p:dataSource-ref="dataSource">
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-				p:showSql="true" p:generateDdl="true" />
+				p:showSql="true" p:generateDdl="false" />
 		</property>
 	</bean>
 

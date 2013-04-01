@@ -44,6 +44,24 @@ public class FeedItemDao {
 				.getSingleResult();
 	}
 
+	public int saveFeed(Feed feed) {
+		int insertedItemsCount = countItemsNotInDatabase(feed.getItems());
+		em.find(Feed.class, feed.getUrl());
+		em.merge(feed);
+		em.flush();
+		return insertedItemsCount;
+	}
+
+	private int countItemsNotInDatabase(List<FeedItem> items) {
+		int result = 0;
+		for (FeedItem item : items) {
+			if (em.find(FeedItem.class, item.getGuid()) == null) {
+				result++;
+			}
+		}
+		return result;
+	}
+
 
 	private Map<String, FeedItem> database = new HashMap<>();
 	

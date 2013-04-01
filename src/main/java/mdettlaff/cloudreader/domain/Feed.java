@@ -2,6 +2,7 @@ package mdettlaff.cloudreader.domain;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -15,7 +16,7 @@ public class Feed {
 	private String url;
 	private String title;
 	private String link;
-	@OneToMany
+	@OneToMany(mappedBy = "feed", cascade = CascadeType.ALL)
 	private List<FeedItem> items;
 
 	public Feed() {
