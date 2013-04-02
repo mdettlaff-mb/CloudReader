@@ -11,6 +11,7 @@ import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +38,14 @@ public class FeedDownloadService {
 	}
 
 	@Transactional
+	@Scheduled(cron = "0 * * * * *")
+	public void updateFeedsPeriodically() {
+		updateFeeds();
+	}
+
+	@Transactional
 	public int updateFeeds() {
+		log.info("update feeds - start");
 		List<Feed> feeds = dao.findFeeds();
 		int totalInsertedItemsCount = 0;
 		for (Feed feed : feeds) {
@@ -48,6 +56,7 @@ public class FeedDownloadService {
 				log.warning("cannot download feed " + feed.getUrl() + ", cause: " + e);
 			}
 		}
+		log.info("update feeds - end");
 		return totalInsertedItemsCount;
 	}
 
