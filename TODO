@@ -1,2 +1,1 @@
-Add @Transactional in service layer.
 Scheduler to call FeedDownloadService.

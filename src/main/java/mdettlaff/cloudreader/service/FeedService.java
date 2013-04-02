@@ -9,6 +9,7 @@ import mdettlaff.cloudreader.domain.FeedItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sun.syndication.io.FeedException;
 
@@ -25,6 +26,11 @@ public class FeedService {
 		this.dao = dao;
 	}
 
+	// no-arg constructor to make CGLIB happy
+	public FeedService() {
+		this(null);
+	}
+
 	public List<FeedItem> getFeedItems() throws FeedException, IOException {
 		return dao.find(false, INITIAL_SIZE, new ArrayList<String>());
 	}
@@ -33,6 +39,7 @@ public class FeedService {
 		return dao.find(false, BUFFER_SIZE, unreadFeedItemsGuids);
 	}
 
+	@Transactional
 	public void markItemAsRead(String feedItemGuid) {
 		dao.updateRead(feedItemGuid, true);
 	}

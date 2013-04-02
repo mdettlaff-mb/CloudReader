@@ -12,6 +12,7 @@ import mdettlaff.cloudreader.domain.FeedItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.hash.Hashing;
 import com.sun.syndication.io.FeedException;
@@ -30,6 +31,12 @@ public class FeedDownloadService {
 		this.dao = dao;
 	}
 
+	// no-arg constructor to make CGLIB happy
+	public FeedDownloadService() {
+		this(null, null);
+	}
+
+	@Transactional
 	public int updateFeeds() {
 		List<Feed> feeds = dao.findFeeds();
 		int totalInsertedItemsCount = 0;
