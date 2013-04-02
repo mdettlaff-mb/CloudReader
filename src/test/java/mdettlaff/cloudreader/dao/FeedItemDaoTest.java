@@ -118,25 +118,29 @@ public class FeedItemDaoTest extends AbstractPersistenceTestContext {
 	@Transactional
 	public void testSaveFeed_Update() {
 		// prepare data
-		Feed feed = new Feed("url1");
+		Feed feed = new Feed("url2");
 		feed.setTitle("My updated feed");
 		feed.setLink("My updated link");
 		List<FeedItem> items = new ArrayList<>();
 		items.add(prepareItem("item-b001", "My added item 1", feed));
+		items.add(prepareItem("item-0007", "My non-updated item", feed));
 		feed.setItems(items);
 		// exercise
 		long result = dao.saveFeed(feed);
 		// verify
 		assertEquals(1, result);
-		Feed updatedFeed = em.find(Feed.class, "url1");
-		assertEquals("url1", updatedFeed.getUrl());
+		Feed updatedFeed = em.find(Feed.class, "url2");
+		assertEquals("url2", updatedFeed.getUrl());
 		assertEquals("My updated feed", updatedFeed.getTitle());
 		assertEquals("My updated link", updatedFeed.getLink());
 		List<FeedItem> newItems = updatedFeed.getItems();
-		assertEquals(3, newItems.size());
-		assertSame(updatedFeed, newItems.get(2).getFeed());
-		assertEquals("item-b001", newItems.get(2).getGuid());
-		assertEquals("My added item 1", newItems.get(2).getTitle());
+		assertEquals(6, newItems.size());
+		assertSame(updatedFeed, newItems.get(5).getFeed());
+		assertEquals("item-b001", newItems.get(5).getGuid());
+		assertEquals("My added item 1", newItems.get(5).getTitle());
+		assertSame(updatedFeed, newItems.get(4).getFeed());
+		assertEquals("item-0007", newItems.get(4).getGuid());
+		assertEquals(true, newItems.get(4).isRead());
 	}
 
 	@Test

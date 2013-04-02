@@ -1,5 +1,6 @@
 package mdettlaff.cloudreader.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -47,18 +48,19 @@ public class FeedItemDao {
 	}
 
 	public int saveFeed(Feed feed) {
-		int insertedItemsCount = countItemsNotInDatabase(feed.getItems());
+		List<FeedItem> newItems = filterNewItems(feed);
+		feed.setItems(newItems);
 		em.find(Feed.class, feed.getUrl());
 		em.merge(feed);
 		em.flush();
-		return insertedItemsCount;
+		return newItems.size();
 	}
 
-	private int countItemsNotInDatabase(List<FeedItem> items) {
-		int result = 0;
-		for (FeedItem item : items) {
+	private List<FeedItem> filterNewItems(Feed feed) {
+		List<FeedItem> result = new ArrayList<>();
+		for (FeedItem item : feed.getItems()) {
 			if (em.find(FeedItem.class, item.getGuid()) == null) {
-				result++;
+				result.add(item);
 			}
 		}
 		return result;
