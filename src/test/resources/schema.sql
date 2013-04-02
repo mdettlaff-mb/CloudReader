@@ -9,7 +9,7 @@ CREATE TABLE FeedItem (
 	feed_url VARCHAR(255) NOT NULL,
 	title VARCHAR(255),
 	link VARCHAR(255),
-	description VARCHAR(255),
+	description CLOB,
 	date TIMESTAMP,
 	downloadDate TIMESTAMP,
 	author VARCHAR(255),
