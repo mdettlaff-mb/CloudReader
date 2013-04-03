@@ -68,9 +68,20 @@
 			}
 		});
 	}
-	
-	function goToItem(itemSelector) {
+
+	function switchToNewItem(currentItem, newItem) {
 		var LOAD_THRESHOLD = 10;
+		currentItem.removeClass('itemCurrent');
+		newItem.addClass('itemRead');
+		newItem.addClass('itemCurrent');
+		var remainingCount = newItem.nextAll('.item').length;
+		if (remainingCount < LOAD_THRESHOLD) {
+			loadMoreItems(newItem);
+		}
+		newItem[0].scrollIntoView();
+	}
+
+	function goToItem(itemSelector) {
 		var currentItem = $('.itemCurrent');
 		var newItem;
 		if (currentItem.length == 0) {
@@ -81,16 +92,15 @@
 		if (newItem.length == 1) {
 			if (!newItem.hasClass('itemRead')) {
 				var readItemId = newItem[0].id;
-				$.post('/items/' + readItemId + '/read');
+				$.ajax({
+					url: '/items/' + readItemId + '/read',
+					type: 'post'
+				}).done(function () {
+					switchToNewItem(currentItem, newItem);
+				});
+			} else {
+				switchToNewItem(currentItem, newItem);
 			}
-			currentItem.removeClass('itemCurrent');
-			newItem.addClass('itemRead');
-			newItem.addClass('itemCurrent');
-			var remainingCount = newItem.nextAll('.item').length;
-			if (remainingCount < LOAD_THRESHOLD) {
-				loadMoreItems(newItem);
-			}
-			newItem[0].scrollIntoView();
 		}
 	}
 	
