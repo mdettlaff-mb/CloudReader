@@ -44,18 +44,15 @@ public class FeedService {
 
 	private void markItemsAsRead(List<String> feedItemsGuids) {
 		for (String guid : feedItemsGuids) {
-			markItemAsRead(guid);
+			dao.updateRead(guid, true);
 		}
-	}
-
-	private void markItemAsRead(String feedItemGuid) {
-		dao.updateRead(feedItemGuid, true);
 	}
 
 	private List<FeedItem> getNewItems(List<String> unreadFeedItemsGuids) {
 		List<FeedItem> result;
 		if (unreadFeedItemsGuids.size() < LOAD_THRESHOLD) {
-			result =  dao.find(false, BUFFER_SIZE, unreadFeedItemsGuids);
+			int limit = BUFFER_SIZE + (LOAD_THRESHOLD - unreadFeedItemsGuids.size() - 1);
+			result =  dao.find(false, limit, unreadFeedItemsGuids);
 		} else {
 			result =  new ArrayList<>();
 		}
