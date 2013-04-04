@@ -1,4 +1,4 @@
-package mdettlaff.cloudreader.dto;
+package mdettlaff.cloudreader.web.request;
 
 import java.util.List;
 

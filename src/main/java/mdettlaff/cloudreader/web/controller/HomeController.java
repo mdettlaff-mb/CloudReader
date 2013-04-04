@@ -1,13 +1,13 @@
-package mdettlaff.cloudreader.controller;
+package mdettlaff.cloudreader.web.controller;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import mdettlaff.cloudreader.domain.FeedItem;
-import mdettlaff.cloudreader.dto.UpdateRequest;
 import mdettlaff.cloudreader.service.FeedDownloadService;
 import mdettlaff.cloudreader.service.FeedService;
+import mdettlaff.cloudreader.web.request.UpdateRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
