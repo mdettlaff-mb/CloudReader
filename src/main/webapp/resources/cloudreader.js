@@ -10,6 +10,10 @@
 		$(document).bind('keydown', 'd', updateFeeds);
 	}
 
+	cloudReader.initUpdateThread = function () {
+		setTimeout(update, 3000);
+	}
+
 
 	// private
 
@@ -53,34 +57,6 @@
 		clonedItem.insertAfter(lastItem);
 	}
 	
-	function loadMoreItems(currentItem) {
-		var unreadItemsIds = currentItem.nextAll('.item:not(.itemRead)').map(function () {
-			return this.id;
-		}).get();
-		$.ajax({
-			url: '/items',
-			type: 'post',
-			contentType: 'application/json',
-			data: JSON.stringify(unreadItemsIds)
-		}).done(function (downloadedItems) {
-			for (var i = 0; i < downloadedItems.length; i++) {
-				createNewItem(downloadedItems[i]);
-			}
-		});
-	}
-
-	function switchToNewItem(currentItem, newItem) {
-		var LOAD_THRESHOLD = 10;
-		currentItem.removeClass('itemCurrent');
-		newItem.addClass('itemRead');
-		newItem.addClass('itemCurrent');
-		var remainingCount = newItem.nextAll('.item').length;
-		if (remainingCount < LOAD_THRESHOLD) {
-			loadMoreItems(newItem);
-		}
-		newItem[0].scrollIntoView();
-	}
-
 	function goToItem(itemSelector) {
 		var currentItem = $('.itemCurrent');
 		var newItem;
@@ -91,16 +67,12 @@
 		}
 		if (newItem.length == 1) {
 			if (!newItem.hasClass('itemRead')) {
-				var readItemId = newItem[0].id;
-				$.ajax({
-					url: '/items/' + readItemId + '/read',
-					type: 'post'
-				}).done(function () {
-					switchToNewItem(currentItem, newItem);
-				});
-			} else {
-				switchToNewItem(currentItem, newItem);
+				newItem.addClass('itemReadPending');
 			}
+			currentItem.removeClass('itemCurrent');
+			newItem.addClass('itemRead');
+			newItem.addClass('itemCurrent');
+			newItem[0].scrollIntoView();
 		}
 	}
 	
@@ -114,6 +86,38 @@
 		goToItem(function (currentItem) {
 			return currentItem.prev('.item');
 		});
+	}
+	
+	function collectIds(elements) {
+		return elements.map(function () {
+			return this.id;
+		}).get();
+	}
+	
+	function update() {
+		var currentItem = $('.itemCurrent');
+		if (currentItem.length == 1) {
+			var readPendingItems = $('.itemReadPending');
+			var unreadItemsIds = collectIds(currentItem.nextAll('.item:not(.itemRead)'));
+			if (readPendingItems.length > 0) {
+				var requestData = {
+					readPendingFeedItemsGuids: collectIds(readPendingItems),
+					unreadFeedItemsGuids: unreadItemsIds
+				};
+				$.ajax({
+					url: '/update',
+					type: 'post',
+					contentType: 'application/json',
+					data: JSON.stringify(requestData)
+				}).done(function (downloadedItems) {
+					readPendingItems.removeClass('itemReadPending');
+					for (var i = 0; i < downloadedItems.length; i++) {
+						createNewItem(downloadedItems[i]);
+					}
+				});
+			}
+		}
+		setTimeout(update, 3000);
 	}
 
 } (window.cloudReader = window.cloudReader || {}, jQuery));
