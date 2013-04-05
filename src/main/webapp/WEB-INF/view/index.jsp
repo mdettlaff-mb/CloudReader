@@ -6,11 +6,11 @@
 <html>
 	<head>
 		<title>Cloud Reader</title>
-		<link rel="stylesheet" href="/resources/style.css" type="text/css">
-		<script src="/resources/jquery-1.9.1.js"></script>
-		<script src="/resources/jquery.hotkeys.js"></script>
-		<script src="/resources/date.format.js"></script>
-		<script src="/resources/cloudreader.js"></script>
+		<link rel="stylesheet" href="/resources/css/style.css" type="text/css">
+		<script src="/resources/js/jquery-1.9.1.js"></script>
+		<script src="/resources/js/jquery.hotkeys.js"></script>
+		<script src="/resources/js/date.format.js"></script>
+		<script src="/resources/js/cloudreader.js"></script>
 		<script>
 			$(document).ready(function () {
 				cloudReader.initHotkeys();
