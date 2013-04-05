@@ -6,7 +6,7 @@ CREATE TABLE Feed (
 
 CREATE TABLE FeedItem (
 	guid VARCHAR(255) NOT NULL PRIMARY KEY,
-	feed_url VARCHAR(255) NOT NULL,
+	feed_url VARCHAR(500) NOT NULL,
 	title VARCHAR(255),
 	link VARCHAR(255),
 	description CLOB,
