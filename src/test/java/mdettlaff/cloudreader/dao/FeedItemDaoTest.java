@@ -9,6 +9,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -161,6 +162,7 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 		item.setGuid(guid);
 		item.setTitle(title);
 		item.setFeed(feed);
+		item.setDownloadDate(new Date());
 		return item;
 	}
 

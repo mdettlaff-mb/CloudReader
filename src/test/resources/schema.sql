@@ -11,9 +11,9 @@ CREATE TABLE FeedItem (
 	link VARCHAR(255),
 	description CLOB,
 	date TIMESTAMP,
-	downloadDate TIMESTAMP,
+	downloadDate TIMESTAMP NOT NULL,
 	author VARCHAR(255),
 	uri VARCHAR(255),
-	read BOOLEAN,
+	read BOOLEAN NOT NULL,
 	FOREIGN KEY(feed_url) REFERENCES Feed(url)
 );
