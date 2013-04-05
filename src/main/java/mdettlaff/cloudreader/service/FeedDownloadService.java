@@ -68,6 +68,7 @@ public class FeedDownloadService {
 			item.setGuid(createGuid(item));
 		}
 		int insertedItemsCount = dao.saveFeed(feed);
+		log.info(insertedItemsCount + " items downloaded");
 		return insertedItemsCount;
 	}
 
