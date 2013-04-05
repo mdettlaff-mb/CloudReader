@@ -1,6 +1,7 @@
 package mdettlaff.cloudreader.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -37,11 +38,13 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 		// exercise
 		List<Feed> results = dao.findFeeds();
 		// verify
-		assertEquals(4, results.size());
-		assertEquals("http://queencorner.ovh.org/rss.xml", results.get(0).getUrl());
-		assertTrue(results.get(0).getItems().isEmpty());
-		assertEquals("https://github.com/mdettlaff-mb/CloudReader/commits/master.atom", results.get(1).getUrl());
-		assertTrue(results.get(1).getItems().isEmpty());
+		assertEquals(68, results.size());
+		Feed feed1 = results.get(results.size() - 2);
+		assertEquals("url1", feed1.getUrl());
+		assertEquals("My feed 1", feed1.getTitle());
+		assertFalse(feed1.getItems().isEmpty());
+		Feed feed2 = results.get(results.size() - 1);
+		assertEquals("url2", feed2.getUrl());
 	}
 
 	@Test
