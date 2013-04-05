@@ -56,7 +56,7 @@ public class FeedDownloadService {
 				log.warning("cannot download feed " + feed.getUrl() + ", cause: " + e);
 			}
 		}
-		log.info("update feeds - end");
+		log.info("update feeds - end (" + totalInsertedItemsCount + " items downloaded)");
 		return totalInsertedItemsCount;
 	}
 
@@ -68,7 +68,6 @@ public class FeedDownloadService {
 			item.setGuid(createGuid(item));
 		}
 		int insertedItemsCount = dao.saveFeed(feed);
-		log.info("feed " + feedUrl + " saved");
 		return insertedItemsCount;
 	}
 

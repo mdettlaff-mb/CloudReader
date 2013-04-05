@@ -16,14 +16,14 @@ import javax.persistence.PersistenceException;
 
 import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
-import mdettlaff.cloudreader.test.AbstractPersistenceTestContext;
+import mdettlaff.cloudreader.test.AbstractPersistenceTest;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-public class FeedItemDaoTest extends AbstractPersistenceTestContext {
+public class FeedItemDaoTest extends AbstractPersistenceTest {
 
 	@PersistenceContext
 	private EntityManager em;
