@@ -22,12 +22,14 @@ import com.sun.syndication.io.XmlReader;
 @Service
 public class FeedParserService {
 
+	private static final int DEFAULT_MAX_WIDTH = 255;
+
 	public Feed parseFeed(URL feedSource) throws FeedException, IOException {
 		SyndFeedInput input = new SyndFeedInput();
 		SyndFeed syndFeed = input.build(new XmlReader(feedSource));
 		Feed feed = new Feed(feedSource.toString());
-		feed.setTitle(syndFeed.getTitle());
-		feed.setLink(syndFeed.getLink());
+		feed.setTitle(abbreviate(syndFeed.getTitle()));
+		feed.setLink(abbreviate(syndFeed.getLink()));
 		List<FeedItem> items = new ArrayList<>();
 		for (Object entry : syndFeed.getEntries()) {
 			FeedItem item = createFeedItem((SyndEntry) entry);
@@ -40,12 +42,12 @@ public class FeedParserService {
 
 	private FeedItem createFeedItem(SyndEntry entry) {
 		FeedItem item = new FeedItem();
-		item.setTitle(StringUtils.trim(entry.getTitle()));
-		item.setLink(entry.getLink());
+		item.setTitle(abbreviate(StringUtils.trim(entry.getTitle())));
+		item.setLink(abbreviate(entry.getLink()));
 		item.setDescription(StringUtils.trim(getDescription(entry)));
 		item.setDate(getDate(entry));
-		item.setAuthor(entry.getAuthor());
-		item.setUri(entry.getUri());
+		item.setAuthor(abbreviate(entry.getAuthor()));
+		item.setUri(abbreviate(entry.getUri()));
 		return item;
 	}
 
@@ -67,5 +69,9 @@ public class FeedParserService {
 			}
 		}
 		return content.getValue();
+	}
+
+	private String abbreviate(String input) {
+		return StringUtils.abbreviate(input, DEFAULT_MAX_WIDTH);
 	}
 }
