@@ -31,7 +31,7 @@ public class FeedItemDao {
 		if (!excludedItemsGuids.isEmpty()) {
 			queryBuilder.append("AND i.guid NOT IN :guids ");
 		}
-		queryBuilder.append("ORDER BY i.date");
+		queryBuilder.append("ORDER BY i.date, i.downloadDate");
 		Query query = em.createQuery(queryBuilder.toString());
 		query.setParameter("read", read);
 		if (!excludedItemsGuids.isEmpty()) {

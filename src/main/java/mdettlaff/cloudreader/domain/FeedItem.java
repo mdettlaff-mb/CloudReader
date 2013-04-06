@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class FeedItem implements Comparable<FeedItem> {
+public class FeedItem {
 
 	@Id
 	private String guid;
@@ -103,15 +103,6 @@ public class FeedItem implements Comparable<FeedItem> {
 
 	public void setRead(boolean read) {
 		this.read = read;
-	}
-
-	@Override
-	public int compareTo(FeedItem other) {
-		if (date != null && other.date != null) {
-			return date.compareTo(other.date);
-		} else {
-			return downloadDate.compareTo(other.downloadDate);
-		}
 	}
 
 	@JsonIgnore
