@@ -30,12 +30,12 @@ No items to display.
 		<fmt:formatDate value="${item.date}" pattern="yyyy-MM-dd HH:mm" />
 	</div>
 	<div class="title">
-		<a href="${item.link}">
+		<a href="${item.link}" target="_blank">
 			${item.title}
 		</a>
 	</div>
 	<div class="feedTitle">
-		<a href="${item.feed.link}">
+		<a href="${item.feed.link}" target="_blank">
 			${item.feed.title}
 		</a>
 	</div>
