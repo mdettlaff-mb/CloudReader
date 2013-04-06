@@ -14,7 +14,6 @@
 		<script>
 			$(document).ready(function () {
 				cloudReader.initHotkeys();
-				cloudReader.initUpdateThread();
 			});
 		</script>
 	</head>

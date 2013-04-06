@@ -16,10 +16,6 @@
 		$(document).bind('keydown', 'd', updateFeeds);
 	}
 
-	cloudReader.initUpdateThread = function () {
-		setTimeout(update, 3000);
-	}
-
 
 	// private
 
@@ -63,7 +59,39 @@
 		clonedItem.insertAfter(lastItem);
 	}
 	
+	function loadMoreItems(currentItem) {
+		var excludedItemsIds = currentItem.nextAll('.item:not(.itemRead)').map(function () {
+			return this.id;
+		}).get();
+		excludedItemsIds.push(currentItem[0].id);
+		$.ajax({
+			url: '/items',
+			type: 'post',
+			contentType: 'application/json',
+			data: JSON.stringify(excludedItemsIds)
+		}).done(function (downloadedItems) {
+			for (var i = 0; i < downloadedItems.length; i++) {
+				createNewItem(downloadedItems[i]);
+			}
+		});
+	}
+
+	function switchToNewItem(currentItem, newItem) {
+		currentItem.removeClass('itemCurrent');
+		newItem.addClass('itemRead');
+		newItem.addClass('itemCurrent');
+		newItem[0].scrollIntoView();
+	}
+
+	function postItemRead(readItemId) {
+		$.ajax({
+			url: '/items/' + readItemId + '/read',
+			type: 'post'
+		});
+	}
+
 	function goToItem(itemSelector) {
+		var LOAD_THRESHOLD = 10;
 		var currentItem = $('.itemCurrent');
 		var newItem;
 		if (currentItem.length == 0) {
@@ -73,12 +101,13 @@
 		}
 		if (newItem.length == 1) {
 			if (!newItem.hasClass('itemRead')) {
-				newItem.addClass('itemReadPending');
+				postItemRead(newItem[0].id);
 			}
-			currentItem.removeClass('itemCurrent');
-			newItem.addClass('itemRead');
-			newItem.addClass('itemCurrent');
-			newItem[0].scrollIntoView();
+			switchToNewItem(currentItem, newItem);
+			var remainingCount = newItem.nextAll('.item').length;
+			if (remainingCount < LOAD_THRESHOLD) {
+				loadMoreItems(newItem);
+			}
 		}
 	}
 	
@@ -92,38 +121,6 @@
 		goToItem(function (currentItem) {
 			return currentItem.prev('.item');
 		});
-	}
-	
-	function collectIds(elements) {
-		return elements.map(function () {
-			return this.id;
-		}).get();
-	}
-	
-	function update() {
-		var currentItem = $('.itemCurrent');
-		if (currentItem.length == 1) {
-			var readPendingItems = $('.itemReadPending');
-			var unreadItemsIds = collectIds(currentItem.nextAll('.item:not(.itemRead)'));
-			if (readPendingItems.length > 0) {
-				var requestData = {
-					readPendingFeedItemsGuids: collectIds(readPendingItems),
-					unreadFeedItemsGuids: unreadItemsIds
-				};
-				$.ajax({
-					url: '/update',
-					type: 'post',
-					contentType: 'application/json',
-					data: JSON.stringify(requestData)
-				}).done(function (downloadedItems) {
-					readPendingItems.removeClass('itemReadPending');
-					for (var i = 0; i < downloadedItems.length; i++) {
-						createNewItem(downloadedItems[i]);
-					}
-				});
-			}
-		}
-		setTimeout(update, 3000);
 	}
 
 } (window.cloudReader = window.cloudReader || {}, jQuery));

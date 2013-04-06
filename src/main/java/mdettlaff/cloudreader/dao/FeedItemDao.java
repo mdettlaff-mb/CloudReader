@@ -24,18 +24,18 @@ public class FeedItemDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<FeedItem> find(boolean read, int limit, List<String> feedItemsGuidsToExclude) {
+	public List<FeedItem> find(boolean read, int limit, List<String> excludedItemsGuids) {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("FROM FeedItem i ");
 		queryBuilder.append("WHERE i.read = :read ");
-		if (!feedItemsGuidsToExclude.isEmpty()) {
+		if (!excludedItemsGuids.isEmpty()) {
 			queryBuilder.append("AND i.guid NOT IN :guids ");
 		}
 		queryBuilder.append("ORDER BY i.date");
 		Query query = em.createQuery(queryBuilder.toString());
 		query.setParameter("read", read);
-		if (!feedItemsGuidsToExclude.isEmpty()) {
-			query.setParameter("guids", feedItemsGuidsToExclude);
+		if (!excludedItemsGuids.isEmpty()) {
+			query.setParameter("guids", excludedItemsGuids);
 		}
 		return query.setMaxResults(limit).getResultList();
 	}

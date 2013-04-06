@@ -18,7 +18,6 @@ public class FeedService {
 
 	private static final int INITIAL_SIZE = 14;
 	private static final int BUFFER_SIZE = 4;
-	private static final int LOAD_THRESHOLD = 10;
 
 	private final FeedItemDao dao;
 
@@ -36,27 +35,13 @@ public class FeedService {
 		return dao.find(false, INITIAL_SIZE, new ArrayList<String>());
 	}
 
+	public List<FeedItem> getFeedItems(List<String> excludedItemsGuids) throws FeedException, IOException {
+		return dao.find(false, BUFFER_SIZE, excludedItemsGuids);
+	}
+
 	@Transactional
-	public List<FeedItem> update(List<String> readPendingFeedItemsGuids, List<String> unreadFeedItemsGuids) throws FeedException, IOException {
-		markItemsAsRead(readPendingFeedItemsGuids);
-		return getNewItems(unreadFeedItemsGuids);
-	}
-
-	private void markItemsAsRead(List<String> feedItemsGuids) {
-		for (String guid : feedItemsGuids) {
-			dao.updateRead(guid, true);
-		}
-	}
-
-	private List<FeedItem> getNewItems(List<String> unreadFeedItemsGuids) {
-		List<FeedItem> result;
-		if (unreadFeedItemsGuids.size() < LOAD_THRESHOLD) {
-			int limit = BUFFER_SIZE + (LOAD_THRESHOLD - unreadFeedItemsGuids.size() - 1);
-			result =  dao.find(false, limit, unreadFeedItemsGuids);
-		} else {
-			result =  new ArrayList<>();
-		}
-		return result;
+	public void markItemAsRead(String feedItemGuid) {
+		dao.updateRead(feedItemGuid, true);
 	}
 
 	public long countUnreadItems() {

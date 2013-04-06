@@ -7,10 +7,10 @@ import java.util.Map;
 import mdettlaff.cloudreader.domain.FeedItem;
 import mdettlaff.cloudreader.service.FeedDownloadService;
 import mdettlaff.cloudreader.service.FeedService;
-import mdettlaff.cloudreader.web.request.UpdateRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,9 +36,15 @@ public class HomeController {
 		return new ModelAndView("index", model);
 	}
 
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public @ResponseBody List<FeedItem> update(@RequestBody UpdateRequest request) throws Exception {
-		return service.update(request.getReadPendingFeedItemsGuids(), request.getUnreadFeedItemsGuids());
+	@RequestMapping(value = "/items/{id}/read", method = RequestMethod.POST)
+	public @ResponseBody String markItemAsRead(@PathVariable("id") String id) {
+		service.markItemAsRead(id);
+		return "";
+	}
+
+	@RequestMapping(value = "/items", method = RequestMethod.POST)
+	public @ResponseBody List<FeedItem> fetchMoreItems(@RequestBody List<String> excludedItemsGuids) throws Exception {
+		return service.getFeedItems(excludedItemsGuids);
 	}
 
 	@RequestMapping(value = "/items/unread/count", method = RequestMethod.GET)
