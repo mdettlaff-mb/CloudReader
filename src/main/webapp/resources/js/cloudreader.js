@@ -3,8 +3,14 @@
 	// public
 	
 	cloudReader.initHotkeys = function () {
-		$(document).bind('keydown', 'n j', goToNextItem);
-		$(document).bind('keydown', 'k', goToPreviousItem);
+		$(document).keydown(function(event) {
+			var SPACE_CODE = 32;
+			if (event.keyCode == SPACE_CODE) {
+				event.preventDefault();
+			}
+		});
+		$(document).bind('keydown', 'n j space', goToNextItem);
+		$(document).bind('keydown', 'k shift+space', goToPreviousItem);
 		$(document).bind('keydown', 'v', openItemLink);
 		$(document).bind('keydown', 'i', countUnreadItems);
 		$(document).bind('keydown', 'd', updateFeeds);
