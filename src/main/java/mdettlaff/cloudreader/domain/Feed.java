@@ -1,6 +1,7 @@
 package mdettlaff.cloudreader.domain;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class Feed {
 	public Feed(String url) {
 		this.url = url;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
@@ -57,5 +58,22 @@ public class Feed {
 
 	public void setItems(List<FeedItem> items) {
 		this.items = items;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Feed other = (Feed) obj;
+		return Objects.equals(url, other.url);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(url);
 	}
 }

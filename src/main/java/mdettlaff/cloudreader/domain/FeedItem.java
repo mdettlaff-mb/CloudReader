@@ -1,6 +1,7 @@
 package mdettlaff.cloudreader.domain;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -114,5 +115,22 @@ public class FeedItem {
 		builder.append(title);
 		builder.append(date);
 		return builder.toString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		FeedItem other = (FeedItem) obj;
+		return Objects.equals(guid, other.guid);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(guid);
 	}
 }
