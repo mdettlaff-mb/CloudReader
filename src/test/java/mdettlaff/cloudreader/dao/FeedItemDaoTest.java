@@ -25,6 +25,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 public class FeedItemDaoTest extends AbstractPersistenceTest {
 
 	@PersistenceContext
@@ -34,7 +35,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	private FeedItemDao dao;
 
 	@Test
-	@Transactional
 	public void testFindFeeds() {
 		// exercise
 		List<Feed> results = dao.findFeeds();
@@ -49,7 +49,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testFind() {
 		// exercise
 		List<FeedItem> results = dao.find(false, 3, Arrays.asList("item-0002", "item-0004"));
@@ -66,7 +65,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testFind_EmptyList() {
 		// prepare data
 		List<String> guidsToExclude = new ArrayList<>();
@@ -83,7 +81,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testCount() {
 		// exercise
 		long result = dao.count(false);
@@ -92,7 +89,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testSaveFeed_Create() {
 		// prepare data
 		Feed feed = new Feed("savedurl");
@@ -119,7 +115,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testSaveFeed_Update() {
 		// prepare data
 		Feed feed = new Feed("url2");
@@ -148,7 +143,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testSaveFeed_ShouldHandleDuplicateItems() {
 		// prepare data
 		Feed feed = new Feed("savedurl");
@@ -173,7 +167,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void testUpdateRead() {
 		// exercise
 		dao.updateRead("item-0001", true);
@@ -192,7 +185,6 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	@Transactional
 	public void shouldThrowExceptionForDuplicateFeedUrl() {
 		// prepare data
 		Feed feed = new Feed("url1");
