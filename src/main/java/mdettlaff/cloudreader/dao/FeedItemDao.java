@@ -59,7 +59,7 @@ public class FeedItemDao {
 	private List<FeedItem> filterNewItems(Feed feed) {
 		List<FeedItem> result = new ArrayList<>();
 		for (FeedItem item : feed.getItems()) {
-			if (em.find(FeedItem.class, item.getGuid()) == null) {
+			if (em.find(FeedItem.class, item.getGuid()) == null && !result.contains(item)) {
 				result.add(item);
 			}
 		}

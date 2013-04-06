@@ -149,6 +149,31 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 
 	@Test
 	@Transactional
+	public void testSaveFeed_ShouldHandleDuplicateItems() {
+		// prepare data
+		Feed feed = new Feed("savedurl");
+		feed.setTitle("My saved feed");
+		List<FeedItem> items = new ArrayList<>();
+		items.add(prepareItem("item-a001", "My saved item 1", feed));
+		items.add(prepareItem("item-a001", "My saved item 1", feed));
+		feed.setItems(items);
+		// exercise
+		long result = dao.saveFeed(feed);
+		// verify
+		assertEquals(1, result);
+		Feed newFeed = em.find(Feed.class, "savedurl");
+		assertNotNull("feed was not saved successfully", newFeed);
+		assertEquals("savedurl", newFeed.getUrl());
+		assertEquals("My saved feed", newFeed.getTitle());
+		List<FeedItem> newItems = newFeed.getItems();
+		assertEquals(1, newItems.size());
+		assertSame(newFeed, newItems.get(0).getFeed());
+		assertEquals("item-a001", newItems.get(0).getGuid());
+		assertEquals("My saved item 1", newItems.get(0).getTitle());
+	}
+
+	@Test
+	@Transactional
 	public void testUpdateRead() {
 		// exercise
 		dao.updateRead("item-0001", true);
