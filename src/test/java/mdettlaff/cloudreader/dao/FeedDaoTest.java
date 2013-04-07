@@ -98,7 +98,7 @@ public class FeedDaoTest extends AbstractPersistenceTest {
 		assertEquals("My added item 1", newItems.get(5).getTitle());
 		assertSame(updatedFeed, newItems.get(4).getFeed());
 		assertEquals("item-0007", newItems.get(4).getGuid());
-		assertEquals(true, newItems.get(4).isRead());
+		assertEquals(FeedItem.Status.READ, newItems.get(4).getStatus());
 	}
 
 	@Test

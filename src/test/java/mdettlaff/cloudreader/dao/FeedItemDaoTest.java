@@ -28,12 +28,12 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	@Test
 	public void testFind() {
 		// exercise
-		List<FeedItem> results = dao.find(false, 3, Arrays.asList("item-0002", "item-0004"));
+		List<FeedItem> results = dao.find(FeedItem.Status.UNREAD, 3, Arrays.asList("item-0002", "item-0004"));
 		// verify
 		assertEquals(3, results.size());
 		FeedItem result1 = results.get(0);
 		assertEquals("item-0001", result1.getGuid());
-		assertEquals(false, result1.isRead());
+		assertEquals(FeedItem.Status.UNREAD, result1.getStatus());
 		assertEquals("My item 1", result1.getTitle());
 		assertEquals("url1", result1.getFeed().getUrl());
 		assertEquals("My feed 1", result1.getFeed().getTitle());
@@ -46,12 +46,12 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 		// prepare data
 		List<String> guidsToExclude = new ArrayList<>();
 		// exercise
-		List<FeedItem> results = dao.find(true, 1, guidsToExclude);
+		List<FeedItem> results = dao.find(FeedItem.Status.READ, 1, guidsToExclude);
 		// verify
 		assertEquals(1, results.size());
 		FeedItem result = results.get(0);
 		assertEquals("item-0007", result.getGuid());
-		assertEquals(true, result.isRead());
+		assertEquals(FeedItem.Status.READ, result.getStatus());
 		assertEquals("My item 7", result.getTitle());
 		assertEquals("url2", result.getFeed().getUrl());
 		assertEquals("My feed 2", result.getFeed().getTitle());
@@ -60,17 +60,17 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	@Test
 	public void testCount() {
 		// exercise
-		long result = dao.count(false);
+		long result = dao.count(FeedItem.Status.UNREAD);
 		// verify
 		assertEquals(6, result);
 	}
 
 	@Test
-	public void testUpdateRead() {
+	public void testUpdateStatus() {
 		// exercise
-		dao.updateRead("item-0001", true);
+		dao.updateStatus("item-0001", FeedItem.Status.READ);
 		// verify
 		FeedItem result = em.find(FeedItem.class, "item-0001");
-		assertEquals(true, result.isRead());
+		assertEquals(FeedItem.Status.READ, result.getStatus());
 	}
 }

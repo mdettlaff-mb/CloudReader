@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -23,7 +25,12 @@ public class FeedItem {
 	private Date downloadDate;
 	private String author;
 	private String uri;
-	private boolean read;
+	@Enumerated(EnumType.STRING)
+	private Status status;
+
+	public FeedItem() {
+		status = Status.UNREAD;
+	}
 
 	public String getGuid() {
 		return guid;
@@ -98,12 +105,12 @@ public class FeedItem {
 		this.uri = uri;
 	}
 
-	public boolean isRead() {
-		return read;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setRead(boolean read) {
-		this.read = read;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	@JsonIgnore
@@ -132,5 +139,10 @@ public class FeedItem {
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(guid);
+	}
+
+	public static enum Status {
+		UNREAD,
+		READ
 	}
 }

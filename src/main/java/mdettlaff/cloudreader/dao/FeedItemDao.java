@@ -17,32 +17,32 @@ public class FeedItemDao {
 	private EntityManager em;
 
 	@SuppressWarnings("unchecked")
-	public List<FeedItem> find(boolean read, int limit, List<String> excludedItemsGuids) {
+	public List<FeedItem> find(FeedItem.Status status, int limit, List<String> excludedItemsGuids) {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("FROM FeedItem i ");
-		queryBuilder.append("WHERE i.read = :read ");
+		queryBuilder.append("WHERE i.status = :status ");
 		if (!excludedItemsGuids.isEmpty()) {
 			queryBuilder.append("AND i.guid NOT IN :guids ");
 		}
 		queryBuilder.append("ORDER BY i.date, i.downloadDate");
 		Query query = em.createQuery(queryBuilder.toString());
-		query.setParameter("read", read);
+		query.setParameter("status", status);
 		if (!excludedItemsGuids.isEmpty()) {
 			query.setParameter("guids", excludedItemsGuids);
 		}
 		return query.setMaxResults(limit).getResultList();
 	}
 
-	public long count(boolean read) {
+	public long count(FeedItem.Status status) {
 		return (long) em.createQuery(
-				"SELECT COUNT(i) FROM FeedItem i WHERE i.read = :read")
-				.setParameter("read", read)
+				"SELECT COUNT(i) FROM FeedItem i WHERE i.status = :status")
+				.setParameter("status", status)
 				.getSingleResult();
 	}
 
-	public void updateRead(String guid, boolean read) {
+	public void updateStatus(String guid, FeedItem.Status status) {
 		FeedItem item = em.find(FeedItem.class, guid);
-		item.setRead(read);
+		item.setStatus(status);
 		em.flush();
 	}
 }

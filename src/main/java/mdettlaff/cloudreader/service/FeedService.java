@@ -27,19 +27,19 @@ public class FeedService {
 	}
 
 	public List<FeedItem> getFeedItems() throws FeedException, IOException {
-		return feedItemDao.find(false, INITIAL_SIZE, new ArrayList<String>());
+		return feedItemDao.find(FeedItem.Status.UNREAD, INITIAL_SIZE, new ArrayList<String>());
 	}
 
 	public List<FeedItem> getFeedItems(List<String> excludedItemsGuids) throws FeedException, IOException {
-		return feedItemDao.find(false, BUFFER_SIZE, excludedItemsGuids);
+		return feedItemDao.find(FeedItem.Status.UNREAD, BUFFER_SIZE, excludedItemsGuids);
 	}
 
 	@Transactional
 	public void markItemAsRead(String feedItemGuid) {
-		feedItemDao.updateRead(feedItemGuid, true);
+		feedItemDao.updateStatus(feedItemGuid, FeedItem.Status.READ);
 	}
 
 	public long countUnreadItems() {
-		return feedItemDao.count(false);
+		return feedItemDao.count(FeedItem.Status.UNREAD);
 	}
 }
