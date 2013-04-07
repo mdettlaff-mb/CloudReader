@@ -71,7 +71,9 @@
 			data: JSON.stringify(excludedItemsIds)
 		}).done(function (downloadedItems) {
 			for (var i = 0; i < downloadedItems.length; i++) {
-				createNewItem(downloadedItems[i]);
+				if ($('#' + downloadedItems[i].guid).length == 0) {
+					createNewItem(downloadedItems[i]);
+				}
 			}
 		});
 	}
