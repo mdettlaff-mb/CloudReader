@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import mdettlaff.cloudreader.dao.FeedItemDao;
+import mdettlaff.cloudreader.dao.FeedDao;
 import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
 
@@ -23,13 +23,13 @@ public class FeedDownloadService {
 
 	private static final Logger log = Logger.getLogger(FeedDownloadService.class.getName());
 
-	private final FeedItemDao dao;
+	private final FeedDao feedDao;
 	private final FeedParserService feedParserService;
 
 	@Autowired
-	public FeedDownloadService(FeedParserService feedParserService, FeedItemDao dao) {
+	public FeedDownloadService(FeedParserService feedParserService, FeedDao feedDao) {
 		this.feedParserService = feedParserService;
-		this.dao = dao;
+		this.feedDao = feedDao;
 	}
 
 	// no-arg constructor to make CGLIB happy
@@ -46,7 +46,7 @@ public class FeedDownloadService {
 	@Transactional
 	public int updateFeeds() {
 		log.info("update feeds - start");
-		List<Feed> feeds = dao.findFeeds();
+		List<Feed> feeds = feedDao.find();
 		int totalInsertedItemsCount = 0;
 		for (Feed feed : feeds) {
 			try {
@@ -67,7 +67,7 @@ public class FeedDownloadService {
 			item.setDownloadDate(new Date());
 			item.setGuid(createGuid(item));
 		}
-		int insertedItemsCount = dao.saveFeed(feed);
+		int insertedItemsCount = feedDao.save(feed);
 		log.info(insertedItemsCount + " new items");
 		return insertedItemsCount;
 	}

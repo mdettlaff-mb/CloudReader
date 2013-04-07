@@ -19,11 +19,11 @@ public class FeedService {
 	private static final int INITIAL_SIZE = 14;
 	private static final int BUFFER_SIZE = 4;
 
-	private final FeedItemDao dao;
+	private final FeedItemDao feedItemDao;
 
 	@Autowired
-	public FeedService(FeedItemDao dao) {
-		this.dao = dao;
+	public FeedService(FeedItemDao feedItemDao) {
+		this.feedItemDao = feedItemDao;
 	}
 
 	// no-arg constructor to make CGLIB happy
@@ -32,19 +32,19 @@ public class FeedService {
 	}
 
 	public List<FeedItem> getFeedItems() throws FeedException, IOException {
-		return dao.find(false, INITIAL_SIZE, new ArrayList<String>());
+		return feedItemDao.find(false, INITIAL_SIZE, new ArrayList<String>());
 	}
 
 	public List<FeedItem> getFeedItems(List<String> excludedItemsGuids) throws FeedException, IOException {
-		return dao.find(false, BUFFER_SIZE, excludedItemsGuids);
+		return feedItemDao.find(false, BUFFER_SIZE, excludedItemsGuids);
 	}
 
 	@Transactional
 	public void markItemAsRead(String feedItemGuid) {
-		dao.updateRead(feedItemGuid, true);
+		feedItemDao.updateRead(feedItemGuid, true);
 	}
 
 	public long countUnreadItems() {
-		return dao.count(false);
+		return feedItemDao.count(false);
 	}
 }
