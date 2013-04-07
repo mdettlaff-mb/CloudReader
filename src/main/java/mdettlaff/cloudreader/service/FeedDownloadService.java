@@ -32,11 +32,6 @@ public class FeedDownloadService {
 		this.feedDao = feedDao;
 	}
 
-	// no-arg constructor to make CGLIB happy
-	public FeedDownloadService() {
-		this(null, null);
-	}
-
 	@Transactional
 	@Scheduled(cron = "0 0 * * * *")
 	public void updateFeedsPeriodically() {

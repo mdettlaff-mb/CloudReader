@@ -26,11 +26,6 @@ public class FeedService {
 		this.feedItemDao = feedItemDao;
 	}
 
-	// no-arg constructor to make CGLIB happy
-	public FeedService() {
-		this(null);
-	}
-
 	public List<FeedItem> getFeedItems() throws FeedException, IOException {
 		return feedItemDao.find(false, INITIAL_SIZE, new ArrayList<String>());
 	}
