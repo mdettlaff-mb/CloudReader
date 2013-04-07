@@ -58,11 +58,19 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 	}
 
 	@Test
-	public void testCount() {
+	public void testCount_ByStatus() {
 		// exercise
 		long result = dao.count(FeedItem.Status.UNREAD);
 		// verify
 		assertEquals(6, result);
+	}
+
+	@Test
+	public void testCount() {
+		// exercise
+		long result = dao.count();
+		// verify
+		assertEquals(7, result);
 	}
 
 	@Test
@@ -72,5 +80,19 @@ public class FeedItemDaoTest extends AbstractPersistenceTest {
 		// verify
 		FeedItem result = em.find(FeedItem.class, "item-0001");
 		assertEquals(FeedItem.Status.READ, result.getStatus());
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	public void testDelete() {
+		// exercise
+		dao.delete(5);
+		// verify
+		List<FeedItem> results = em.createQuery(
+				"SELECT i FROM FeedItem i ORDER BY downloadDate")
+				.getResultList();
+		assertEquals(2, results.size());
+		assertEquals("item-0005", results.get(0).getGuid());
+		assertEquals("item-0006", results.get(1).getGuid());
 	}
 }

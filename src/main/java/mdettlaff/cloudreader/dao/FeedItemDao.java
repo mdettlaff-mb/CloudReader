@@ -40,9 +40,23 @@ public class FeedItemDao {
 				.getSingleResult();
 	}
 
+	public long count() {
+		return (long) em.createQuery("SELECT COUNT(i) FROM FeedItem i").getSingleResult();
+	}
+
 	public void updateStatus(String guid, FeedItem.Status status) {
 		FeedItem item = em.find(FeedItem.class, guid);
 		item.setStatus(status);
+		em.flush();
+	}
+
+	public void delete(long limit) {
+		em.createNativeQuery(
+				"DELETE FROM FeedItem " +
+				"WHERE guid IN " +
+				"    (SELECT guid FROM FeedItem ORDER BY status, date, downloadDate LIMIT :limit)")
+				.setParameter("limit", limit)
+				.executeUpdate();
 		em.flush();
 	}
 }
