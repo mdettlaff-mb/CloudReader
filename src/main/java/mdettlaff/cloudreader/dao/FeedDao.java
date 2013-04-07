@@ -23,17 +23,17 @@ public class FeedDao {
 	}
 
 	public int save(Feed feed) {
-		List<FeedItem> newItems = filterNewItems(feed);
-		feed.setItems(newItems);
+		List<FeedItem> filteredItems = filterItems(feed.getItems());
+		feed.setItems(filteredItems);
 		em.find(Feed.class, feed.getUrl());
 		em.merge(feed);
 		em.flush();
-		return newItems.size();
+		return filteredItems.size();
 	}
 
-	private List<FeedItem> filterNewItems(Feed feed) {
+	private List<FeedItem> filterItems(List<FeedItem> items) {
 		List<FeedItem> result = new ArrayList<>();
-		for (FeedItem item : feed.getItems()) {
+		for (FeedItem item : items) {
 			if (em.find(FeedItem.class, item.getGuid()) == null && !result.contains(item)) {
 				result.add(item);
 			}
