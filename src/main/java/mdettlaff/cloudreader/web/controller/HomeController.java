@@ -30,7 +30,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ModelAndView home() throws Exception {
+	public ModelAndView home() {
 		Map<String, Object> model = new HashMap<>();
 		model.put("feedItems", service.getFeedItems());
 		return new ModelAndView("index", model);
@@ -43,7 +43,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/items", method = RequestMethod.POST)
-	public @ResponseBody List<FeedItem> fetchMoreItems(@RequestBody List<String> excludedItemsGuids) throws Exception {
+	public @ResponseBody List<FeedItem> fetchMoreItems(@RequestBody List<String> excludedItemsGuids) {
 		return service.getFeedItems(excludedItemsGuids);
 	}
 

@@ -1,6 +1,5 @@
 package mdettlaff.cloudreader.service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +9,6 @@ import mdettlaff.cloudreader.domain.FeedItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.sun.syndication.io.FeedException;
 
 @Service
 public class FeedService {
@@ -26,11 +23,11 @@ public class FeedService {
 		this.feedItemDao = feedItemDao;
 	}
 
-	public List<FeedItem> getFeedItems() throws FeedException, IOException {
+	public List<FeedItem> getFeedItems() {
 		return feedItemDao.find(FeedItem.Status.UNREAD, INITIAL_SIZE, new ArrayList<String>());
 	}
 
-	public List<FeedItem> getFeedItems(List<String> excludedItemsGuids) throws FeedException, IOException {
+	public List<FeedItem> getFeedItems(List<String> excludedItemsGuids) {
 		return feedItemDao.find(FeedItem.Status.UNREAD, BUFFER_SIZE, excludedItemsGuids);
 	}
 
