@@ -38,7 +38,7 @@ public class FeedDownloadService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 0 0 * * *")
+	@Scheduled(cron = "0 0 * * * *")
 	public void updateFeedsPeriodically() {
 		updateFeeds();
 	}
