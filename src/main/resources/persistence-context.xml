@@ -11,12 +11,17 @@
 
 	<context:component-scan base-package="mdettlaff.cloudreader.dao" />
 
-	<context:property-placeholder location="classpath:jdbc.properties" />
+	<context:property-placeholder location="classpath:jdbc.properties" system-properties-mode="OVERRIDE" />
 
-	<bean id="dataSource" destroy-method="close"
-		class="org.apache.commons.dbcp.BasicDataSource"
-		p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
-		p:username="${jdbc.username}" p:password="${jdbc.password}" />
+	<bean class="java.net.URI" id="dbUrl">
+		<constructor-arg value="${DATABASE_URL}"/>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+		p:driverClassName="${jdbc.driverClassName}"
+		p:url="#{'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath()}"
+		p:username="#{@dbUrl.getUserInfo().split(':')[0]}"
+		p:password="#{@dbUrl.getUserInfo().split(':')[1]}" />
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
