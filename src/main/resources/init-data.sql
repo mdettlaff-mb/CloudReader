@@ -6,7 +6,7 @@ INSERT INTO Feed (url) VALUES ('http://davidbrin.blogspot.com/feeds/posts/defaul
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/CrackedRSS');
 INSERT INTO Feed (url) VALUES ('http://www.damninteresting.com/?feed=rss2');
 INSERT INTO Feed (url) VALUES ('http://previous.delicious.com/v2/rss/network/wundzun');
-INSERT INTO Feed (url) VALUES ('http://www.dzone.com/links/feed/frontpage/rss.xml');
+INSERT INTO Feed (url) VALUES ('http://feeds.dzone.com/dzone/frontpage');
 INSERT INTO Feed (url) VALUES ('http://www.everythingisterrible.com/feeds/posts/default');
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/failblog');
 INSERT INTO Feed (url) VALUES ('http://www.infoq.com/rss/rss.action?token=xNlmgbsJxyBOlm3uvXx7GlQxgAofDw2v');
