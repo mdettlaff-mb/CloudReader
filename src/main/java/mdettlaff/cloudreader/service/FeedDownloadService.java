@@ -49,6 +49,9 @@ public class FeedDownloadService {
 				totalInsertedItemsCount += insertedItemsCount;
 			} catch (FeedException | IOException e) {
 				log.warning("cannot download feed " + feed.getUrl() + ", cause: " + e);
+			} catch (Exception e) {
+				log.severe("error while downloading feed " + feed.getUrl() + ", cause: " + e);
+				throw e;
 			}
 		}
 		log.info("update feeds - end (" + totalInsertedItemsCount + " new items)");
@@ -56,14 +59,13 @@ public class FeedDownloadService {
 	}
 
 	private int downloadFeedItems(URL feedUrl) throws FeedException, IOException {
-		log.info("downloading " + feedUrl);
 		Feed feed = feedParserService.parseFeed(feedUrl);
 		for (FeedItem item : feed.getItems()) {
 			item.setDownloadDate(new Date());
 			item.setGuid(createGuid(item));
 		}
 		int insertedItemsCount = feedDao.save(feed);
-		log.info(insertedItemsCount + " new items");
+		log.info("downloaded " + insertedItemsCount + " new items from " + feedUrl);
 		return insertedItemsCount;
 	}
 
