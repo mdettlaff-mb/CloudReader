@@ -19,7 +19,7 @@ public class FeedDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Feed> find() {
-		return em.createQuery("FROM Feed f ORDER BY f.url").getResultList();
+		return em.createQuery("FROM Feed ORDER BY url").getResultList();
 	}
 
 	public int save(Feed feed) {

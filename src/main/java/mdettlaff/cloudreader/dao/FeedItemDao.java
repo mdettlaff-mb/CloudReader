@@ -19,12 +19,12 @@ public class FeedItemDao {
 	@SuppressWarnings("unchecked")
 	public List<FeedItem> find(FeedItem.Status status, int limit, List<String> excludedItemsGuids) {
 		StringBuilder queryBuilder = new StringBuilder();
-		queryBuilder.append("FROM FeedItem i ");
-		queryBuilder.append("WHERE i.status = :status ");
+		queryBuilder.append("FROM FeedItem ");
+		queryBuilder.append("WHERE status = :status ");
 		if (!excludedItemsGuids.isEmpty()) {
-			queryBuilder.append("AND i.guid NOT IN :guids ");
+			queryBuilder.append("AND guid NOT IN :guids ");
 		}
-		queryBuilder.append("ORDER BY i.date, i.downloadDate");
+		queryBuilder.append("ORDER BY date, downloadDate");
 		Query query = em.createQuery(queryBuilder.toString());
 		query.setParameter("status", status);
 		if (!excludedItemsGuids.isEmpty()) {
@@ -35,7 +35,7 @@ public class FeedItemDao {
 
 	public long count(FeedItem.Status status) {
 		return (long) em.createQuery(
-				"SELECT COUNT(i) FROM FeedItem i WHERE i.status = :status")
+				"SELECT COUNT(i) FROM FeedItem i WHERE status = :status")
 				.setParameter("status", status)
 				.getSingleResult();
 	}
