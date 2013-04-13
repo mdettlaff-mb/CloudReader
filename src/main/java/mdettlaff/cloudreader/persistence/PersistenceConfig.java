@@ -16,6 +16,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
+import com.google.common.base.Objects;
+
 @Configuration
 @PropertySource("classpath:/jdbc.properties")
 public class PersistenceConfig {
@@ -47,7 +49,7 @@ public class PersistenceConfig {
 
 	@Bean
 	public DataSource dataSource() throws URISyntaxException {
-		URI uri = new URI(System.getProperty("DATABASE_URL", databaseUrl));
+		URI uri = new URI(Objects.firstNonNull(System.getenv("DATABASE_URL"), databaseUrl));
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName(driverClassName);
 		dataSource.setUrl("jdbc:postgresql://" + uri.getHost() + ":" + uri.getPort() + uri.getPath());
