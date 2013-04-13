@@ -1,4 +1,4 @@
-package mdettlaff.cloudreader.dao;
+package mdettlaff.cloudreader.persistence;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import mdettlaff.cloudreader.domain.FeedItem;
+import mdettlaff.cloudreader.persistence.FeedItemDao;
 import mdettlaff.cloudreader.test.AbstractPersistenceTest;
 
 import org.junit.Test;

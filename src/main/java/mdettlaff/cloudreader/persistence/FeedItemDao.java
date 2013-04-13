@@ -1,4 +1,4 @@
-package mdettlaff.cloudreader.dao;
+package mdettlaff.cloudreader.persistence;
 
 import java.util.List;
 

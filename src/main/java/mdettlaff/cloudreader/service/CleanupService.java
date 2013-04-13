@@ -2,8 +2,8 @@ package mdettlaff.cloudreader.service;
 
 import java.util.logging.Logger;
 
-import mdettlaff.cloudreader.dao.FeedItemDao;
 import mdettlaff.cloudreader.domain.FeedItem;
+import mdettlaff.cloudreader.persistence.FeedItemDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

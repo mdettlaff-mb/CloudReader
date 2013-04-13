@@ -1,4 +1,4 @@
-package mdettlaff.cloudreader.dao;
+package mdettlaff.cloudreader.persistence;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,6 +17,7 @@ import javax.persistence.PersistenceException;
 
 import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
+import mdettlaff.cloudreader.persistence.FeedDao;
 import mdettlaff.cloudreader.test.AbstractPersistenceTest;
 
 import org.hibernate.exception.ConstraintViolationException;

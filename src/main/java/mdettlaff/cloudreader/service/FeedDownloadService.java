@@ -6,9 +6,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import mdettlaff.cloudreader.dao.FeedDao;
 import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
+import mdettlaff.cloudreader.persistence.FeedDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
