@@ -10,14 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import mdettlaff.cloudreader.domain.FeedItem;
-import mdettlaff.cloudreader.persistence.FeedItemDao;
-import mdettlaff.cloudreader.test.AbstractPersistenceTest;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public class FeedItemDaoTest extends AbstractPersistenceTest {
 
 	@PersistenceContext

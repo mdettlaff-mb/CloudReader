@@ -17,15 +17,11 @@ import javax.persistence.PersistenceException;
 
 import mdettlaff.cloudreader.domain.Feed;
 import mdettlaff.cloudreader.domain.FeedItem;
-import mdettlaff.cloudreader.persistence.FeedDao;
-import mdettlaff.cloudreader.test.AbstractPersistenceTest;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
-@Transactional
 public class FeedDaoTest extends AbstractPersistenceTest {
 
 	@PersistenceContext
