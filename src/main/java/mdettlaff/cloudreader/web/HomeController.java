@@ -1,4 +1,4 @@
-package mdettlaff.cloudreader.web.controller;
+package mdettlaff.cloudreader.web;
 
 import java.util.HashMap;
 import java.util.List;
