@@ -15,16 +15,16 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 public class PersistenceTestConfig {
 
 	@Bean
-	public DataSource dataSource() {
-		return new EmbeddedDatabaseBuilder().addDefaultScripts().build();
-	}
-
-	@Bean
-	public PropertyOverrideConfigurer propertyOverrideConfigurer() {
+	public static PropertyOverrideConfigurer propertyOverrideConfigurer() {
 		PropertyOverrideConfigurer bean = new PropertyOverrideConfigurer();
 		Properties properties = new Properties();
 		properties.setProperty("entityManagerFactory.jpaVendorAdapter.showSql", "true");
 		bean.setProperties(properties);
 		return bean;
+	}
+
+	@Bean
+	public DataSource dataSource() {
+		return new EmbeddedDatabaseBuilder().addDefaultScripts().build();
 	}
 }
