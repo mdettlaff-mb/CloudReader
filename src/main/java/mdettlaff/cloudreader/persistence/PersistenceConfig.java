@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -24,7 +23,6 @@ import com.google.common.base.Objects;
 
 @Configuration
 @PropertySource("classpath:jdbc.properties")
-@ComponentScan(basePackageClasses = PersistenceConfig.class)
 public class PersistenceConfig {
 
 	private @Value("${jdbc.databaseUrl}") String databaseUrl;
