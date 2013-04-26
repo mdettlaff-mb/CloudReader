@@ -17,3 +17,8 @@ CREATE TABLE FeedItem (
 	status VARCHAR(16) NOT NULL,
 	FOREIGN KEY(feed_url) REFERENCES Feed(url)
 );
+
+CREATE TABLE dictionary (
+	key VARCHAR(32) NOT NULL PRIMARY KEY,
+	value CLOB NOT NULL
+);

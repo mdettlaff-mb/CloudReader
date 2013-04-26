@@ -24,6 +24,7 @@ public class FeedDao {
 
 	public int save(Feed feed) {
 		List<FeedItem> filteredItems = filterItems(feed.getItems());
+		new Guids(em).removeDeleted(filteredItems);
 		feed.setItems(filteredItems);
 		em.find(Feed.class, feed.getUrl());
 		em.merge(feed);
