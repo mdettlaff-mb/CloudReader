@@ -71,6 +71,6 @@ public class FeedDownloadService {
 	}
 
 	private String createGuid(FeedItem item) {
-		return "item-" + Hashing.sha1().newHasher().putString(item.getHashBase()).hash().toString();
+		return "item-" + Hashing.sha1().newHasher().putString(item.getHashBase()).hash();
 	}
 }
