@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CleanupService {
 
-	private static final int THRESHOLD = 8500;
+	private static final int THRESHOLD = 8000;
 
 	private final Logger log = LoggerFactory.getLogger(CleanupService.class);
 
