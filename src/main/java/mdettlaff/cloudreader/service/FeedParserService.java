@@ -12,6 +12,7 @@ import mdettlaff.cloudreader.domain.FeedItem;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.google.common.base.Objects;
 import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -68,7 +69,7 @@ public class FeedParserService {
 				content = contents.get(0);
 			}
 		}
-		return content.getValue();
+		return content == null ? null : content.getValue();
 	}
 
 	private String abbreviate(String input) {
