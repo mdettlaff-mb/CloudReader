@@ -56,3 +56,4 @@ INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;
 INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;arg=llewy10');
 INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;arg=rpoland');
 INSERT INTO Feed (url) VALUES ('http://what-if.xkcd.com/feed.atom');
+INSERT INTO Feed (url) VALUES ('http://rss.gmane.org/topics/excerpts/gmane.comp.version-control.git');
