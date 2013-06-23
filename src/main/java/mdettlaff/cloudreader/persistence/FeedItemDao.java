@@ -24,7 +24,7 @@ public class FeedItemDao {
 		if (!excludedItemsGuids.isEmpty()) {
 			queryBuilder.append("AND guid NOT IN :guids ");
 		}
-		queryBuilder.append("ORDER BY date, downloadDate");
+		queryBuilder.append("ORDER BY COALESCE(date, downloadDate)");
 		Query query = em.createQuery(queryBuilder.toString());
 		query.setParameter("status", status);
 		if (!excludedItemsGuids.isEmpty()) {
@@ -54,7 +54,8 @@ public class FeedItemDao {
 		em.createNativeQuery(
 				"DELETE FROM FeedItem " +
 				"WHERE guid IN " +
-				"    (SELECT guid FROM FeedItem ORDER BY status, date, downloadDate LIMIT :limit)")
+				"    (SELECT guid FROM FeedItem " +
+				"        ORDER BY status, COALESCE(date, downloadDate) LIMIT :limit)")
 				.setParameter("limit", limit)
 				.executeUpdate();
 		em.flush();

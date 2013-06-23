@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -86,6 +88,10 @@ public class FeedItem {
 
 	public void setDownloadDate(Date downloadDate) {
 		this.downloadDate = downloadDate;
+	}
+
+	public Date getSortDate() {
+		return ObjectUtils.firstNonNull(date, downloadDate);
 	}
 
 	public String getAuthor() {
