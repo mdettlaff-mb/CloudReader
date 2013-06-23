@@ -55,7 +55,7 @@
 		$('.title a', clonedItem).html(downloadedItem.title);
 		$('.title a', clonedItem).attr('href', downloadedItem.link);
 		$('.description', clonedItem).html(downloadedItem.description);
-		$('.date', clonedItem).html(new Date(parseInt(downloadedItem.date)).format('yyyy-mm-dd HH:MM'));
+		$('.date', clonedItem).html(new Date(parseInt(downloadedItem.sortDate)).format('yyyy-mm-dd HH:MM'));
 		clonedItem.insertAfter(lastItem);
 	}
 	
