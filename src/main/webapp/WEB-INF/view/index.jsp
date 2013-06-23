@@ -36,10 +36,15 @@ No items to display.
 			${item.title}
 		</a>
 	</div>
-	<div class="feedTitle">
-		<a href="${item.feed.link}" target="_blank">
+	<div>
+		<a href="${item.feed.link}" target="_blank" class="feedTitle">
 			${item.feed.title}
 		</a>
+		<span class="author">
+		<c:if test="${not empty item.author}">
+			(author: ${item.author})
+		</c:if>
+		</span>
 	</div>
 	<div class="description">${item.description}</div>
 </div>
