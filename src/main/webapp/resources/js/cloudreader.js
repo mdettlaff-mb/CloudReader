@@ -50,8 +50,10 @@
 		clonedItem.removeClass('itemCurrent');
 		clonedItem.removeClass('itemRead');
 		clonedItem[0].id = downloadedItem.guid;
-		$('.feedTitle a', clonedItem).html(downloadedItem.feed.title);
-		$('.feedTitle a', clonedItem).attr('href', downloadedItem.feed.link);
+		$('.feedTitle', clonedItem).html(downloadedItem.feed.title);
+		$('.feedTitle', clonedItem).attr('href', downloadedItem.feed.link);
+		var authorContent = downloadedItem.author ? '(author: ' + downloadedItem.author + ')' : '';
+		$('.author', clonedItem).html(authorContent);
 		$('.title a', clonedItem).html(downloadedItem.title);
 		$('.title a', clonedItem).attr('href', downloadedItem.link);
 		$('.description', clonedItem).html(downloadedItem.description);
