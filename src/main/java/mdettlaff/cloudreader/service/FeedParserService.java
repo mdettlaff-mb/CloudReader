@@ -29,7 +29,7 @@ public class FeedParserService {
 		SyndFeed syndFeed = input.build(new XmlReader(feedSource));
 		Feed feed = new Feed(feedSource.toString());
 		feed.setTitle(abbreviate(syndFeed.getTitle()));
-		feed.setLink(abbreviate(syndFeed.getLink()));
+		feed.setLink(syndFeed.getLink());
 		List<FeedItem> items = new ArrayList<>();
 		for (Object entry : syndFeed.getEntries()) {
 			FeedItem item = createFeedItem((SyndEntry) entry);
@@ -43,7 +43,7 @@ public class FeedParserService {
 	private FeedItem createFeedItem(SyndEntry entry) {
 		FeedItem item = new FeedItem();
 		item.setTitle(abbreviate(StringUtils.trim(entry.getTitle())));
-		item.setLink(abbreviate(entry.getLink()));
+		item.setLink(entry.getLink());
 		item.setDescription(StringUtils.trim(getDescription(entry)));
 		item.setDate(getDate(entry));
 		item.setAuthor(abbreviate(entry.getAuthor()));
