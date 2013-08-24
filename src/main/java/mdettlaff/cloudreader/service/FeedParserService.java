@@ -47,7 +47,7 @@ public class FeedParserService {
 		item.setDescription(StringUtils.trim(getDescription(entry)));
 		item.setDate(getDate(entry));
 		item.setAuthor(abbreviate(entry.getAuthor()));
-		item.setUri(abbreviate(entry.getUri()));
+		item.setUri(entry.getUri());
 		return item;
 	}
 
