@@ -1,14 +1,14 @@
 CREATE TABLE Feed (
 	url VARCHAR(500) NOT NULL PRIMARY KEY,
 	title VARCHAR(255),
-	link VARCHAR(255)
+	link CLOB
 );
 
 CREATE TABLE FeedItem (
 	guid VARCHAR(255) NOT NULL PRIMARY KEY,
 	feed_url VARCHAR(500) NOT NULL,
 	title VARCHAR(255),
-	link VARCHAR(255),
+	link CLOB,
 	description CLOB,
 	date TIMESTAMP,
 	downloadDate TIMESTAMP NOT NULL,
