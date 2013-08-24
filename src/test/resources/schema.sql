@@ -13,7 +13,7 @@ CREATE TABLE FeedItem (
 	date TIMESTAMP,
 	downloadDate TIMESTAMP NOT NULL,
 	author VARCHAR(255),
-	uri VARCHAR(255),
+	uri CLOB,
 	status VARCHAR(16) NOT NULL,
 	FOREIGN KEY(feed_url) REFERENCES Feed(url)
 );
