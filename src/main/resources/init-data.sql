@@ -17,7 +17,7 @@ INSERT INTO Feed (url) VALUES ('http://www.mininova.com/rss/the+daily+show');
 INSERT INTO Feed (url) VALUES ('http://photoshopdisasters.blogspot.com/feeds/posts/default');
 INSERT INTO Feed (url) VALUES ('http://www.reddit.com/r/java+haskell+scheme+forth+groovy+compsci+codeprojects+sysor+semanticweb+software+xmpp+socialsoftware+agile+erlang+grails+lisp+opensource+python+soa+ruby+cobol+vim+emacs+dotnet+csharp+programming+scala+clojure+javascript+css+php+mysql+functional+J2EE/.rss');
 INSERT INTO Feed (url) VALUES ('http://www.reddit.com/.rss');
-INSERT INTO Feed (url) VALUES ('http://www.schneier.com/blog/index.rdf');
+INSERT INTO Feed (url) VALUES ('https://www.schneier.com/blog/index2.rdf');
 INSERT INTO Feed (url) VALUES ('http://rss.sciam.com/ScientificAmerican-Global');
 INSERT INTO Feed (url) VALUES ('http://rss.slashdot.org/slashdot/classic');
 INSERT INTO Feed (url) VALUES ('http://stuffwhitepeoplelike.com/feed/');
