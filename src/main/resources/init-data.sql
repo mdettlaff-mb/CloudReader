@@ -57,6 +57,7 @@ INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;
 INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;arg=rpoland');
 INSERT INTO Feed (url) VALUES ('http://what-if.xkcd.com/feed.atom');
 INSERT INTO Feed (url) VALUES ('http://rss.gmane.org/topics/excerpts/gmane.comp.version-control.git');
+INSERT INTO Feed (url) VALUES ('http://devopsreactions.tumblr.com/rss');
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/satwcomic');
 
 INSERT INTO dictionary (key, value) VALUES ('guids', '');
