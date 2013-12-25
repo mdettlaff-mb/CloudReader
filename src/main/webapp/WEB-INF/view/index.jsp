@@ -15,8 +15,8 @@
 		<script src="/resources/js/date.format.js"></script>
 		<script src="/resources/js/cloudreader.js"></script>
 		<script>
-			$(document).ready(function () {
-				cloudReader.initHotkeys();
+			$(function () {
+				cloudReader.init();
 			});
 		</script>
 	</head>
