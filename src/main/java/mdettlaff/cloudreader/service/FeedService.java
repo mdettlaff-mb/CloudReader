@@ -1,6 +1,5 @@
 package mdettlaff.cloudreader.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import mdettlaff.cloudreader.domain.FeedItem;
@@ -13,9 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class FeedService {
 
-	private static final int INITIAL_SIZE = 14;
-	private static final int BUFFER_SIZE = 4;
-
 	private final FeedItemDao feedItemDao;
 
 	@Autowired
@@ -23,17 +19,15 @@ public class FeedService {
 		this.feedItemDao = feedItemDao;
 	}
 
-	public List<FeedItem> getFeedItems() {
-		return feedItemDao.find(FeedItem.Status.UNREAD, INITIAL_SIZE, new ArrayList<String>());
-	}
-
-	public List<FeedItem> getFeedItems(List<String> excludedItemsGuids) {
-		return feedItemDao.find(FeedItem.Status.UNREAD, BUFFER_SIZE, excludedItemsGuids);
+	public List<FeedItem> getUnreadFeedItems(int count, List<String> excludedItemsGuids) {
+		return feedItemDao.find(FeedItem.Status.UNREAD, count, excludedItemsGuids);
 	}
 
 	@Transactional
-	public void markItemAsRead(String feedItemGuid) {
-		feedItemDao.updateStatus(feedItemGuid, FeedItem.Status.READ);
+	public void markItemsAsRead(List<String> itemsGuids) {
+		for (String itemGuid : itemsGuids) {
+			feedItemDao.updateStatus(itemGuid, FeedItem.Status.READ);
+		}
 	}
 
 	public long countUnreadItems() {

@@ -8,10 +8,9 @@ import mdettlaff.cloudreader.service.FeedService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -27,15 +26,16 @@ public class FeedItemController {
 		this.downloadService = downloadService;
 	}
 
-	@RequestMapping(value = "{id}/read", method = RequestMethod.POST)
-	public @ResponseBody String markItemAsRead(@PathVariable("id") String id) {
-		service.markItemAsRead(id);
+	@RequestMapping(value = "read", method = RequestMethod.POST)
+	public @ResponseBody String markItemsAsRead(@RequestParam List<String> itemsGuids) {
+		service.markItemsAsRead(itemsGuids);
 		return "";
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public @ResponseBody List<FeedItem> fetchMoreItems(@RequestBody List<String> excludedItemsGuids) {
-		return service.getFeedItems(excludedItemsGuids);
+	@RequestMapping(method = RequestMethod.GET)
+	public @ResponseBody List<FeedItem> fetchMoreItems(
+			@RequestParam int count, @RequestParam List<String> excludedItemsGuids) {
+		return service.getUnreadFeedItems(count, excludedItemsGuids);
 	}
 
 	@RequestMapping(value = "unread/count", method = RequestMethod.GET)
