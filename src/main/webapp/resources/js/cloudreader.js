@@ -5,6 +5,7 @@
 	cloudReader.init = function() {
 		initHotkeys();
 		initScrollEvent();
+		loadMoreItems([]);
 	}
 
 
@@ -26,14 +27,21 @@
 
 	function initScrollEvent() {
 		$(window).scroll(function() {
-			$('.item:not(.itemRead)').each(function (index, element) {
-				var item = $('#' + element.id);
-				if ($(window).scrollTop() > (item.offset().top + 10)) {
-					goToItem(function (currentItem) {
-						return currentItem.next('.item');
-					}, false);
-				}
+			var itemsReadByScrolling = $('.item:not(.itemRead)').filter(function (index) {
+				var scrolledPastItem = $(window).scrollTop() > $(this).offset().top + 10;
+				return scrolledPastItem;
 			});
+			itemsReadByScrolling.each(function (index, element) {
+				$(element).addClass('itemRead');
+			});
+			if (itemsReadByScrolling.length > 0) {
+				var readItemsIds = itemsReadByScrolling.map(function () {
+					return this.id;
+				}).get();
+				loadMoreItems(readItemsIds);
+				postItemsRead(readItemsIds);
+				switchCurrentItem($('.itemCurrent'), itemsReadByScrolling.last());
+			}
 		});
 	}
 
@@ -61,58 +69,19 @@
 		}
 	}
 
-	function createNewItem(downloadedItem) {
-		var lastItem = $('.item').last();
-		var lastItemId = lastItem[0].id;
-		var clonedItem = lastItem.clone();
-		clonedItem.removeClass('itemCurrent');
-		clonedItem.removeClass('itemRead');
-		clonedItem[0].id = downloadedItem.guid;
-		$('.feedTitle', clonedItem).html(downloadedItem.feed.title);
-		$('.feedTitle', clonedItem).attr('href', downloadedItem.feed.link);
-		var authorContent = downloadedItem.author ? '(author: ' + downloadedItem.author + ')' : '';
-		$('.author', clonedItem).html(authorContent);
-		$('.title a', clonedItem).html(downloadedItem.title);
-		$('.title a', clonedItem).attr('href', downloadedItem.link);
-		$('.description', clonedItem).html(downloadedItem.description);
-		$('.date', clonedItem).html(new Date(parseInt(downloadedItem.sortDate)).format('yyyy-mm-dd HH:MM'));
-		clonedItem.insertAfter(lastItem);
+	function goToNextItem() {
+		goToItem(function (currentItem) {
+			return currentItem.next('.item');
+		});
 	}
 	
-	function loadMoreItems(currentItem) {
-		var excludedItemsIds = currentItem.nextAll('.item:not(.itemRead)').map(function () {
-			return this.id;
-		}).get();
-		excludedItemsIds.push(currentItem[0].id);
-		$.ajax({
-			url: '/items',
-			type: 'post',
-			contentType: 'application/json',
-			data: JSON.stringify(excludedItemsIds)
-		}).done(function (downloadedItems) {
-			for (var i = 0; i < downloadedItems.length; i++) {
-				if ($('#' + downloadedItems[i].guid).length == 0) {
-					createNewItem(downloadedItems[i]);
-				}
-			}
+	function goToPreviousItem() {
+		goToItem(function (currentItem) {
+			return currentItem.prev('.item');
 		});
 	}
 
-	function switchToNewItem(currentItem, newItem) {
-		currentItem.removeClass('itemCurrent');
-		newItem.addClass('itemRead');
-		newItem.addClass('itemCurrent');
-	}
-
-	function postItemRead(readItemId) {
-		$.ajax({
-			url: '/items/' + readItemId + '/read',
-			type: 'post'
-		});
-	}
-
-	function goToItem(itemSelector, scrollAfterSwitch) {
-		var LOAD_THRESHOLD = 10;
+	function goToItem(itemSelector) {
 		var currentItem = $('.itemCurrent');
 		var newItem;
 		if (currentItem.length == 0) {
@@ -122,29 +91,83 @@
 		}
 		if (newItem.length == 1) {
 			if (!newItem.hasClass('itemRead')) {
-				postItemRead(newItem[0].id);
+				newItem.addClass('itemRead');
+				var readItemsIds = [newItem[0].id];
+				loadMoreItems(readItemsIds);
+				postItemsRead(readItemsIds);
 			}
-			switchToNewItem(currentItem, newItem);
-			if (scrollAfterSwitch) {
-				newItem[0].scrollIntoView();
-			}
-			var remainingCount = newItem.nextAll('.item').length;
-			if (remainingCount < LOAD_THRESHOLD) {
-				loadMoreItems(newItem);
-			}
+			switchCurrentItem(currentItem, newItem);
+			newItem[0].scrollIntoView();
 		}
 	}
 	
-	function goToNextItem() {
-		goToItem(function (currentItem) {
-			return currentItem.next('.item');
-		}, true);
+	function postItemsRead(readItemsIds) {
+		$.ajax({
+			url: '/items/read',
+			type: 'post',
+			data: {
+				itemsGuids: readItemsIds.join(',')
+			}
+		});
 	}
-	
-	function goToPreviousItem() {
-		goToItem(function (currentItem) {
-			return currentItem.prev('.item');
-		}, true);
+
+	function loadMoreItems(readItemsIds) {
+		var ITEMS_INITIAL_SIZE = 15;
+		var ITEMS_BUFFER_SIZE = 5;
+		var unread = $('.item:not(.itemRead)');
+		var itemsToLoadCount = ITEMS_INITIAL_SIZE - unread.length;
+		if (itemsToLoadCount < ITEMS_BUFFER_SIZE) {
+			return;
+		}
+		var excludedItemsIds = readItemsIds.concat(unread.map(function () {
+			return this.id;
+		}).get());
+		$.ajax({
+			url: '/items',
+			data: {
+				count: itemsToLoadCount,
+				excludedItemsGuids: excludedItemsIds.join(',')
+			}
+		}).done(function (downloadedItems) {
+			for (var i = 0; i < downloadedItems.length; i++) {
+				if ($('#' + downloadedItems[i].guid).length == 0) {
+					var newItem = createNewItem(downloadedItems[i]);
+					$('#items').append(newItem);
+				}
+			}
+			$('#message').html(downloadedItems.length > 0 ? '' : 'No more items at the moment.');
+		});
+	}
+
+	function createNewItem(downloadedItem) {
+		var itemHtml = '';
+		itemHtml += '<div class="item">\n';
+		itemHtml += '    <div class="date"></div>\n';
+		itemHtml += '    <div class="title">\n';
+		itemHtml += '        <a target="_blank"></a>\n';
+		itemHtml += '    </div>\n';
+		itemHtml += '    <div>\n';
+		itemHtml += '        <a target="_blank" class="feedTitle"></a>\n';
+		itemHtml += '        <span class="author"></span>\n';
+		itemHtml += '    </div>\n';
+		itemHtml += '    <div class="description"></div>\n';
+		itemHtml += '</div>';
+		var newItem = $.parseHTML(itemHtml);
+		newItem[0].id = downloadedItem.guid;
+		$('.feedTitle', newItem).html(downloadedItem.feed.title);
+		$('.feedTitle', newItem).attr('href', downloadedItem.feed.link);
+		var authorContent = downloadedItem.author ? '(author: ' + downloadedItem.author + ')' : '';
+		$('.author', newItem).html(authorContent);
+		$('.title a', newItem).html(downloadedItem.title);
+		$('.title a', newItem).attr('href', downloadedItem.link);
+		$('.description', newItem).html(downloadedItem.description);
+		$('.date', newItem).html(new Date(parseInt(downloadedItem.sortDate)).format('yyyy-mm-dd HH:MM'));
+		return newItem;
+	}
+
+	function switchCurrentItem(oldCurrentItem, newCurrentItem) {
+		oldCurrentItem.removeClass('itemCurrent');
+		newCurrentItem.addClass('itemCurrent');
 	}
 
 } (window.cloudReader = window.cloudReader || {}, jQuery));
