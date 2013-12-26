@@ -122,6 +122,7 @@
 		var excludedItemsIds = readItemsIds.concat(unread.map(function () {
 			return this.id;
 		}).get());
+		$('#message').html('Loading items, please wait...');
 		$.ajax({
 			url: '/items',
 			data: {
@@ -137,6 +138,8 @@
 			}
 			var noMoreItems = downloadedItems.length < itemsToLoadCount;
 			$('#message').html(noMoreItems ? 'No more items at the moment.' : '');
+		}).fail(function () {
+			$('#message').html('Unable to load items.');
 		});
 	}
 
