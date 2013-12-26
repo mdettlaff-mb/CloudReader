@@ -135,7 +135,8 @@
 					$('#items').append(newItem);
 				}
 			}
-			$('#message').html(downloadedItems.length > 0 ? '' : 'No more items at the moment.');
+			var noMoreItems = downloadedItems.length < itemsToLoadCount;
+			$('#message').html(noMoreItems ? 'No more items at the moment.' : '');
 		});
 	}
 
