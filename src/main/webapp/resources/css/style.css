@@ -17,7 +17,8 @@ a {
 }
 
 .itemCurrent {
-	border: 2px blue solid;
+	border: 3px blue solid;
+	padding: 5px;
 	color: black;
 }
 
