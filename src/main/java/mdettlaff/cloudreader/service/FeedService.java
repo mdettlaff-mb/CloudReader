@@ -20,7 +20,17 @@ public class FeedService {
 	}
 
 	public List<FeedItem> getUnreadFeedItems(int count, List<String> excludedItemsGuids) {
-		return feedItemDao.find(FeedItem.Status.UNREAD, count, excludedItemsGuids);
+		return convertItems(feedItemDao.find(FeedItem.Status.UNREAD, count, excludedItemsGuids));
+	}
+
+	private List<FeedItem> convertItems(List<FeedItem> items) {
+		for (FeedItem item : items) {
+			String link = item.getLink();
+			if (link != null && link.startsWith("http://www.reddit.com/r/")) {
+				item.setLink(link + ".compact");
+			}
+		}
+		return items;
 	}
 
 	@Transactional
