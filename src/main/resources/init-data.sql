@@ -46,6 +46,7 @@ INSERT INTO Feed (url) VALUES ('http://code.google.com/feeds/p/jreader-ug/update
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/LinuxHatersBlog');
 INSERT INTO Feed (url) VALUES ('http://planet.debian.org/rss20.xml');
 INSERT INTO Feed (url) VALUES ('http://www.userfriendly.org/rss/uf.rss');
+INSERT INTO Feed (url) VALUES ('https://news.ycombinator.com/rss');
 INSERT INTO Feed (url) VALUES ('http://gdata.youtube.com/feeds/base/users/GoogleDevelopers/uploads?alt=rss&amp;v=2&amp;orderby=published&amp;client=ytapi-youtube-profile');
 INSERT INTO Feed (url) VALUES ('http://gdata.youtube.com/feeds/base/users/oessu/uploads?alt=rss&amp;v=2&amp;orderby=published&amp;client=ytapi-youtube-profile');
 INSERT INTO Feed (url) VALUES ('http://gdata.youtube.com/feeds/base/users/RedLetterMedia/uploads?alt=rss&amp;v=2&amp;orderby=published&amp;client=ytapi-youtube-profile');
