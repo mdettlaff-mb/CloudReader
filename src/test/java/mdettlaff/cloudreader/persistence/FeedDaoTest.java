@@ -35,7 +35,7 @@ public class FeedDaoTest extends AbstractPersistenceTest {
 		// exercise
 		List<Feed> results = dao.find();
 		// verify
-		assertEquals(64, results.size());
+		assertEquals(65, results.size());
 		Feed feed1 = results.get(results.size() - 2);
 		assertEquals("url1", feed1.getUrl());
 		assertEquals("My feed 1", feed1.getTitle());
