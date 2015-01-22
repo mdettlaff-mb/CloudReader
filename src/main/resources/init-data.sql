@@ -57,6 +57,8 @@ INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;
 INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;arg=llewy10');
 INSERT INTO Feed (url) VALUES ('http://www.youtube.com/ut_rss?type=username&amp;arg=rpoland');
 INSERT INTO Feed (url) VALUES ('http://moviecode.tumblr.com/rss');
+INSERT INTO Feed (url) VALUES ('http://antyweb.pl/feed');
+INSERT INTO Feed (url) VALUES ('http://thecodinglove.com/rss');
 INSERT INTO Feed (url) VALUES ('http://what-if.xkcd.com/feed.atom');
 INSERT INTO Feed (url) VALUES ('http://rss.gmane.org/topics/excerpts/gmane.comp.version-control.git');
 INSERT INTO Feed (url) VALUES ('http://devopsreactions.tumblr.com/rss');
