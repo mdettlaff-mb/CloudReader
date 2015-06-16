@@ -42,6 +42,7 @@ INSERT INTO Feed (url) VALUES ('http://feeds2.feedburner.com/Roflcopter?format=x
 INSERT INTO Feed (url) VALUES ('http://code.google.com/feeds/p/coolkey/updates/basic');
 INSERT INTO Feed (url) VALUES ('http://www.groklaw.net/backend/GrokLaw.rdf');
 INSERT INTO Feed (url) VALUES ('http://rss.hacking.pl/');
+INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/niebezpiecznik/');
 INSERT INTO Feed (url) VALUES ('http://code.google.com/feeds/p/jreader-ug/updates/basic');
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/LinuxHatersBlog');
 INSERT INTO Feed (url) VALUES ('http://planet.debian.org/rss20.xml');
