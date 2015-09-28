@@ -25,7 +25,7 @@ public class CleanupService {
 	}
 
 	@Transactional
-	@Scheduled(cron = "0 30 0 * * *")
+	@Scheduled(cron = "0 55 * * * *")
 	public void deleteOldFeedItems() {
 		log.info("delete old feed items - start");
 		long allItemsCount = feedItemDao.count();
