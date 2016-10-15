@@ -2,6 +2,7 @@ package mdettlaff.cloudreader.service;
 
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,8 +26,11 @@ public class FeedParserService {
 	private static final int DEFAULT_MAX_WIDTH = 255;
 
 	public Feed parseFeed(URL feedSource) throws FeedException, IOException {
+		URLConnection urlConnection = feedSource.openConnection();
+		urlConnection.setRequestProperty("User-Agent", "CloudReader/1.0");
+
 		SyndFeedInput input = new SyndFeedInput();
-		SyndFeed syndFeed = input.build(new XmlReader(feedSource));
+		SyndFeed syndFeed = input.build(new XmlReader(urlConnection));
 		Feed feed = new Feed(feedSource.toString());
 		feed.setTitle(abbreviate(syndFeed.getTitle()));
 		feed.setLink(syndFeed.getLink());
