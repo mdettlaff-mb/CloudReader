@@ -13,7 +13,6 @@ INSERT INTO Feed (url) VALUES ('http://www.infoq.com/rss/rss.action?token=xNlmgb
 INSERT INTO Feed (url) VALUES ('http://code.google.com/feeds/p/primefaces/issueupdates/basic');
 INSERT INTO Feed (url) VALUES ('http://www.java-tv.com/feed/');
 INSERT INTO Feed (url) VALUES ('http://www.joemonster.org/backend.php');
-INSERT INTO Feed (url) VALUES ('http://www.mininova.com/rss/the+daily+show');
 INSERT INTO Feed (url) VALUES ('http://photoshopdisasters.blogspot.com/feeds/posts/default');
 INSERT INTO Feed (url) VALUES ('https://www.reddit.com/.rss');
 INSERT INTO Feed (url) VALUES ('https://www.reddit.com/r/java+haskell+scheme+forth+groovy+compsci+codeprojects+sysor+semanticweb+software+xmpp+socialsoftware+agile+erlang+grails+lisp+opensource+python+soa+ruby+cobol+vim+emacs+dotnet+csharp+programming+scala+clojure+javascript+css+php+mysql+functional+J2EE/.rss');
