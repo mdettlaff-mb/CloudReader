@@ -26,7 +26,6 @@ INSERT INTO Feed (url) VALUES ('http://submachine.pl/feed/atom');
 INSERT INTO Feed (url) VALUES ('http://syndication.thedailywtf.com/TheDailyWtf');
 INSERT INTO Feed (url) VALUES ('http://syndication.thedailywtf.com/WTF/PL');
 INSERT INTO Feed (url) VALUES ('http://googleblog.blogspot.com/feeds/posts/default');
-INSERT INTO Feed (url) VALUES ('http://feeds.theonion.com/theonion/daily');
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/ThisIsNotPorn-RareCelebrityPhotos');
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/TotallyLooksLike');
 INSERT INTO Feed (url) VALUES ('http://www.trzeciakawa.pl/?feed=rss2');
