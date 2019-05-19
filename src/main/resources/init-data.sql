@@ -9,7 +9,7 @@ INSERT INTO Feed (url) VALUES ('http://previous.delicious.com/v2/rss/network/wun
 INSERT INTO Feed (url) VALUES ('http://feeds.dzone.com/dzone/frontpage');
 INSERT INTO Feed (url) VALUES ('http://www.everythingisterrible.com/feeds/posts/default');
 INSERT INTO Feed (url) VALUES ('http://feeds.feedburner.com/failblog');
-INSERT INTO Feed (url) VALUES ('http://www.infoq.com/rss/rss.action?token=xNlmgbsJxyBOlm3uvXx7GlQxgAofDw2v');
+INSERT INTO Feed (url) VALUES ('https://feed.infoq.com?token=xNlmgbsJxyBOlm3uvXx7GlQxgAofDw2v');
 INSERT INTO Feed (url) VALUES ('http://code.google.com/feeds/p/primefaces/issueupdates/basic');
 INSERT INTO Feed (url) VALUES ('http://www.java-tv.com/feed/');
 INSERT INTO Feed (url) VALUES ('http://www.joemonster.org/backend.php');
